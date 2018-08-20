@@ -62,6 +62,17 @@ export class WatcherComponent implements OnInit {
     return `https://www.binance.com/en/trade/${market.from.toUpperCase()}_${market.to.toUpperCase()}`;
   }
 
+  get chartData() {
+    const chartData = this.lastTrades.map(trade => {
+      return [
+        trade.tradeTime,
+        trade.price
+      ];
+    });
+
+    return chartData;
+  }
+
   private coonnectToWebsocket() {
 
     const endpoint = `${BINANCE_WS_ENDPOINT}/${this.market.from}${this.market.to}@trade`;

@@ -10,6 +10,9 @@
     </div>
   </div>
   <div fxFlex>
+    <app-chart [data]="chartData"></app-chart>
+  </div>
+  <div fxFlex>
     <div class="market-stream">
       <div *ngFor="let trade of lastTrades" class="market-stream-item" [ngStyle]="{'backgroundColor': getBgColorBasedOnVolume(trade.quantity), 'color': getColorBasedOnVolume(trade.quantity)}">
         <div fxLayout="row" fxLayoutAlign="space-between">
