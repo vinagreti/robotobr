@@ -1,0 +1,25 @@
+.pages-wrapper {
+  width: 100%;
+  height: 100vh;
+
+  .pages-content {
+    height: 100%;
+  }
+
+  .item-padding {
+    padding: 16px;
+  }
+  
+  .pages-sidenav {
+    background-color: #162137;
+    color: white;
+  }
+
+  .pages-router-wrapper {
+    padding: 16px;
+  }
+
+  .toggle-icon-mode-btn {
+    min-width: 65px;
+  }
+}

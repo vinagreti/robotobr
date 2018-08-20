@@ -1,0 +1,26 @@
+<div fxLayout="column" fxLayoutGap="1px" class="whatcher-wrapper">
+  <div fxFlex class="market-header">
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <a fxFlex [href]="getMarketChartLink(market)" target="_blank">
+        {{ market.from | uppercase }}
+      </a>
+      <div *ngIf="lastTrades && lastTrades[0]">
+        {{lastTrades[0].price}} {{ market.to | uppercase }}
+      </div>
+    </div>
+  </div>
+  <div fxFlex>
+    <div class="market-stream">
+      <div *ngFor="let trade of lastTrades" class="market-stream-item" [ngStyle]="{'backgroundColor': getBgColorBasedOnVolume(trade.quantity), 'color': getColorBasedOnVolume(trade.quantity)}">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <div fxFlex>
+            {{ trade.price }}
+          </div>
+          <div>
+            {{ trade.quantity }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

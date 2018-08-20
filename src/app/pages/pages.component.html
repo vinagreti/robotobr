@@ -1,0 +1,36 @@
+<mat-drawer-container autosize class="pages-wrapper">
+
+  <mat-drawer #drawer mode="side" opened="true" class="pages-sidenav" fxLayout="column" fxLayoutAlign="space-between">
+
+    <div class="item-padding">
+
+
+      <div>
+        <mat-icon>android</mat-icon> &nbsp;
+        <span *ngIf="!iconMode">RobotoBR</span>
+      </div>
+
+    </div>
+
+    <div fxFlex>
+
+      <app-left-menu [iconMode]="iconMode"></app-left-menu>
+
+    </div>
+
+    <button mat-button class="toggle-icon-mode-btn" (click)="iconMode = !!!iconMode">
+      <ng-container *ngIf="!iconMode">
+        <mat-icon>arrow_back</mat-icon> &nbsp; compact
+      </ng-container>
+      <mat-icon *ngIf="iconMode">arrow_forward</mat-icon>
+    </button>
+
+  </mat-drawer>
+
+  <div class="pages-content">
+    <div class="pages-router-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</mat-drawer-container>

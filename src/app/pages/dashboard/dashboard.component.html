@@ -1,0 +1,27 @@
+<div class="toolbar-wrapper" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end">
+  <div fxFlex="120px">
+    <mat-select placeholder="Add market" [(ngModel)]="marketToAdd" (selectionChange)="addMarket($event)" name="market-selector">
+      <mat-option value=""></mat-option>
+      <mat-option *ngFor="let market of markets" [value]="market">
+        {{market.label}}
+      </mat-option>
+    </mat-select>
+  </div>
+
+  <div fxFlex="120px">
+    <mat-select placeholder="Add order" [(ngModel)]="orderToAdd" (selectionChange)="addOrder($event)" name="order-selector">
+      <mat-option value=""></mat-option>
+      <mat-option *ngFor="let orderType of orderTypes" [value]="orderType">
+        {{orderType.label}}
+      </mat-option>
+    </mat-select>
+  </div>
+</div>
+
+<hr>
+
+<div fxLayout="row" fxLayoutGap="16px">
+  <div *ngFor="let market of openMarkets">
+    <app-watcher [market]="market" (trade)="onTrade(market, $event)"></app-watcher>
+  </div>
+</div>

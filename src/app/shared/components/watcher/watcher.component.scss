@@ -1,0 +1,21 @@
+.whatcher-wrapper {
+  width: 218px;
+
+  .market-header {
+    padding: 8px;
+    background-color: red;
+    color: white;
+  }
+
+  .market-stream {
+    display: block;
+    overflow: auto;
+    max-height: calc(100vh - 124px);
+    height: calc(100vh - 124px);
+
+    .market-stream-item {
+      padding: 2px 8px;
+      font-size: 12px;
+    }
+  }
+}
