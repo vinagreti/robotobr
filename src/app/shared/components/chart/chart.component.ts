@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
-import { GoogleChartComponent } from 'ng2-google-charts';
+import { Component, OnInit, Input, EventEmitter, OnDestroy } from '@angular/core';
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { Subscription } from 'rxjs';
 
@@ -17,16 +16,17 @@ export class ChartComponent implements OnInit, OnDestroy {
       ['0', 0]
     ],
     options: {
-      title: 'Company Performance',
       legend: {
         position: 'bottom',
       }
     }
   };
 
+  @Input() title: string;
+
   @Input()
   set data(v: any[]) {
-    if (v && this._data !== v) {
+    if (v && JSON.stringify(this._data) !== JSON.stringify(v)) {
       this._data = v;
       this.dataChanges.emit(this._data);
     }
@@ -35,8 +35,6 @@ export class ChartComponent implements OnInit, OnDestroy {
   get data() {
     return this._data;
   }
-
-  @ViewChild(GoogleChartComponent) cchart: GoogleChartComponent;
 
   private dataChanges = new EventEmitter();
 
@@ -67,12 +65,18 @@ export class ChartComponent implements OnInit, OnDestroy {
   }
 
   private updateChartData = (data) => {
+    console.log('updateChartData', this.title)
     this.lineChartData.dataTable = [['Time', 'Price']];
     if (data && data.length) {
       this.lineChartData.dataTable.push(...data);
     } else {
       this.lineChartData.dataTable.push([0, 0]);
     }
+
+    if (this.title) {
+      this.lineChartData.options['title'] = this.title;
+    }
+
     this.lineChartData = Object.create(this.lineChartData);
   }
 
