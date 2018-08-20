@@ -39,7 +39,7 @@ export class WatcherComponent implements OnInit {
   ngOnInit() { }
 
   getBgColorBasedOnVolume(quantity = 0) {
-    let bgColor;
+    let bgColor = '';
     if (quantity > 10) {
       bgColor = 'red';
     } else if (quantity > 1) {
@@ -49,7 +49,7 @@ export class WatcherComponent implements OnInit {
   }
 
   getColorBasedOnVolume(quantity = 0) {
-    let color;
+    let color = '';
     if (quantity < 0.1) {
       color = 'rgba(0, 0, 0, 0.2)';
     } else if (quantity > 1) {

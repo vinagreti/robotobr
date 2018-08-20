@@ -1,0 +1,97 @@
+{
+  "configVersion": 1,
+  "index": "https://vinagreti.github.io/robotobr/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://vinagreti.github.io/robotobr/0.184b8aa5aab10e2c461a.js",
+        "https://vinagreti.github.io/robotobr/1.6290563cdfa8589a8b6f.js",
+        "https://vinagreti.github.io/robotobr/2.30aa88ec73bc6ec665da.js",
+        "https://vinagreti.github.io/robotobr/3.15d59c4afed446049f55.js",
+        "https://vinagreti.github.io/robotobr/4.e2a5a3360b974599c6a1.js",
+        "https://vinagreti.github.io/robotobr/5.56c58ce34f5a2025792f.js",
+        "https://vinagreti.github.io/robotobr/6.e054f61ea41a8f2e4b25.js",
+        "https://vinagreti.github.io/robotobr/7.c3ebcf507489471a5d31.js",
+        "https://vinagreti.github.io/robotobr/8.9277f8770728e708ea8e.js",
+        "https://vinagreti.github.io/robotobr/favicon.ico",
+        "https://vinagreti.github.io/robotobr/index.html",
+        "https://vinagreti.github.io/robotobr/main.349c6a4716b941c7b076.js",
+        "https://vinagreti.github.io/robotobr/polyfills.c9121398e866940803fe.js",
+        "https://vinagreti.github.io/robotobr/runtime.6f2ca73df9e6b5f598e8.js",
+        "https://vinagreti.github.io/robotobr/styles.3aa2d2958e50a2999dbd.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://vinagreti.github.io/robotobr/assets/fonts/Roboto/Medium/Roboto-Medium.woff",
+        "https://vinagreti.github.io/robotobr/assets/fonts/Roboto/Medium/Roboto-Medium.woff2",
+        "https://vinagreti.github.io/robotobr/assets/fonts/Roboto/Regular/Roboto-Regular.woff",
+        "https://vinagreti.github.io/robotobr/assets/fonts/Roboto/Regular/Roboto-Regular.woff2",
+        "https://vinagreti.github.io/robotobr/assets/styles/_appearance.scss",
+        "https://vinagreti.github.io/robotobr/assets/styles/_color-classes.scss",
+        "https://vinagreti.github.io/robotobr/assets/styles/_color-constants.scss",
+        "https://vinagreti.github.io/robotobr/assets/styles/_constants.scss",
+        "https://vinagreti.github.io/robotobr/assets/styles/_font.scss",
+        "https://vinagreti.github.io/robotobr/assets/styles/_kissbot-theme.scss",
+        "https://vinagreti.github.io/robotobr/assets/styles/_theming.scss",
+        "https://vinagreti.github.io/robotobr/assets/styles/app-startup-spinner.css"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://vinagreti.github.io/robotobr/0.184b8aa5aab10e2c461a.js": "3f5eff558a9f9cefb0bec3350c980ebe0704f77c",
+    "https://vinagreti.github.io/robotobr/1.6290563cdfa8589a8b6f.js": "f4c837b556d9b538c3f4ea42ad67fb06e21da495",
+    "https://vinagreti.github.io/robotobr/2.30aa88ec73bc6ec665da.js": "cd4738fee4289c4a001683b2d63f9cbd56ea473a",
+    "https://vinagreti.github.io/robotobr/3.15d59c4afed446049f55.js": "28e7429921125dfaf43ced386d98db2f41c56826",
+    "https://vinagreti.github.io/robotobr/4.e2a5a3360b974599c6a1.js": "98f60f4a4a19977ecf2401ba55db05a823ed02ca",
+    "https://vinagreti.github.io/robotobr/5.56c58ce34f5a2025792f.js": "f5f497d58ed1ad631f091297804c11f50aba4e16",
+    "https://vinagreti.github.io/robotobr/6.e054f61ea41a8f2e4b25.js": "499d62d24f3aa135e11344e837f8b33d93ed11be",
+    "https://vinagreti.github.io/robotobr/7.c3ebcf507489471a5d31.js": "2c6b526b45ed7a3ffb49e61d295113dca31a1957",
+    "https://vinagreti.github.io/robotobr/8.9277f8770728e708ea8e.js": "23809288f24a1cdd608a3e42820270b90322c324",
+    "https://vinagreti.github.io/robotobr/assets/fonts/Roboto/Medium/Roboto-Medium.woff": "3caf9bcd149c12e6abfe03d309e931d4ca22d4a8",
+    "https://vinagreti.github.io/robotobr/assets/fonts/Roboto/Medium/Roboto-Medium.woff2": "e24a020df79c6ce3bcc4a6a33930f697b8e1d6b2",
+    "https://vinagreti.github.io/robotobr/assets/fonts/Roboto/Regular/Roboto-Regular.woff": "96eca9934dff83a12371dd54fc6c1bf29256815a",
+    "https://vinagreti.github.io/robotobr/assets/fonts/Roboto/Regular/Roboto-Regular.woff2": "463a07f5c66bf14e6d9d6e0f6d5e3fd3cb11f4ec",
+    "https://vinagreti.github.io/robotobr/assets/styles/_appearance.scss": "20385df9202d044d0ee2832630bc454de80c3a7b",
+    "https://vinagreti.github.io/robotobr/assets/styles/_color-classes.scss": "32127519061c2e52480a47ede86582b85c614d08",
+    "https://vinagreti.github.io/robotobr/assets/styles/_color-constants.scss": "02f5b340c010e2814178f60ad6dac5e79261ecce",
+    "https://vinagreti.github.io/robotobr/assets/styles/_constants.scss": "5bb9b124a743b2e1c738a004923a1ce20fbd7365",
+    "https://vinagreti.github.io/robotobr/assets/styles/_font.scss": "964992d609efa58c0dd0c190cb03534b29af755d",
+    "https://vinagreti.github.io/robotobr/assets/styles/_kissbot-theme.scss": "ce5228b4a106ef0bed50fc940bbe86ca48f7d4e8",
+    "https://vinagreti.github.io/robotobr/assets/styles/_theming.scss": "6d7012b356d5ecadfc10bb216073c6bd980010a4",
+    "https://vinagreti.github.io/robotobr/assets/styles/app-startup-spinner.css": "318f6850bb590e942a6fb999651d7e29b7c748fb",
+    "https://vinagreti.github.io/robotobr/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "https://vinagreti.github.io/robotobr/index.html": "901afa03da880695dec3d5839de8661d3648a69b",
+    "https://vinagreti.github.io/robotobr/main.349c6a4716b941c7b076.js": "4728a55a5cd64adc2a73c2f70f87102e1129ab8a",
+    "https://vinagreti.github.io/robotobr/polyfills.c9121398e866940803fe.js": "d5849ad3cd22b03e9e65bacd1cc184b24f4d26f1",
+    "https://vinagreti.github.io/robotobr/runtime.6f2ca73df9e6b5f598e8.js": "a1a93c1c1ceda70d5a1cb6b4d81f4f32d9c45ef0",
+    "https://vinagreti.github.io/robotobr/styles.3aa2d2958e50a2999dbd.css": "3b5d1b588c97ee2d1a7ab71884163ff74199f679"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}

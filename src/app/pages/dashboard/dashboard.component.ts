@@ -13,6 +13,8 @@ export class DashboardComponent implements OnInit {
 
   marketToAdd;
 
+  orderToAdd;
+
   markets: TradeMarket[] = [
     { label: 'BTC - USD', from: 'btc', to: 'usdt' },
     { label: 'ETH - USD', from: 'eth', to: 'usdt' },

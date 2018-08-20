@@ -1,0 +1,15 @@
+@import '~@angular/material/_theming';
+@include mat-core();
+
+// COLORS
+$kissbot-theme-primary: mat-palette($mat-teal, A400);
+$kissbot-theme-accent: mat-palette($mat-blue, 800);
+$kissbot-theme-warn: mat-palette($mat-orange);
+
+// THEME
+$kissbot-theme: mat-light-theme($kissbot-theme-primary, $kissbot-theme-accent, $kissbot-theme-warn);
+
+
+button.mat-raised-button.mat-primary{
+  color: white;
+}
