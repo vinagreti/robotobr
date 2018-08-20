@@ -59,7 +59,7 @@ export class ChartComponent implements OnInit, OnDestroy {
   private subscribeToDataChanges() {
     this.dataChangesSubscription = this.dataChanges
     .pipe(
-      debounceTime(1000),
+      debounceTime(500),
       distinctUntilChanged(),
     ).subscribe(this.updateChartData)
   }
