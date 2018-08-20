@@ -51,13 +51,33 @@ export class DashboardComponent implements OnInit {
   }
 
   addOrder(event) {
+
     const operation = event.value;
+
     if (operation) {
       const operationId = operation.label;
 
       const dialogRef = this.dialogservice.open(UpsertOrderComponent, {
         title: operationId,
       });
+
+      dialogRef.componentInstance.child.subscribe((orderComponent: UpsertOrderComponent) => {
+
+        orderComponent.create.subscribe(order => {
+          console.log('order create', order);
+          dialogRef.close();
+        });
+
+        orderComponent.cancel.subscribe(() => {
+          console.log('order cancel');
+          dialogRef.close();
+        });
+
+      });
+
+      setTimeout(() => {
+        this.orderToAdd = undefined;
+      }, 0);
 
     }
   }

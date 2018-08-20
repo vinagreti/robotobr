@@ -13,9 +13,13 @@
     max-height: calc(100vh - 124px);
     height: calc(100vh - 124px);
 
+    
     .market-stream-item {
       padding: 2px 8px;
       font-size: 12px;
     }
   }
 }
+                ::-webkit-scrollbar {
+                  display: none;
+                }

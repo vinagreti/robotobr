@@ -10,4 +10,5 @@ export interface OpenConfiguration {
   title?;
   actions?;
   context?;
+  fullScreen?: boolean;
 }

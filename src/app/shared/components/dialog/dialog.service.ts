@@ -12,14 +12,14 @@ export class DialogService {
   ) { }
 
 
-  open(childComponent: ComponentType<any>, config: OpenConfiguration) {
+  open(childComponent: ComponentType<any>, config: OpenConfiguration): MatDialogRef<DialogComponent> {
 
-    const dialogInstance: MatDialogRef<any> = this.dialog.open(
+    const dialogInstance: MatDialogRef<DialogComponent> = this.dialog.open(
       DialogComponent,
       {
-        width: config.width || '100vw',
-        height: config.heigth || '100vh',
-        panelClass: 'full-screen-dialog'
+        width: config.fullScreen ? (config.width || '100vw') : '25vw',
+        height: config.fullScreen ? (config.heigth || '100vh') : '50vh',
+        panelClass: config.fullScreen ? 'app-dialog full-screen-dialog' : 'app-dialog',
       }
     );
 

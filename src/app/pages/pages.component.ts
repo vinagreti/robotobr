@@ -10,7 +10,7 @@ export class PagesComponent implements OnInit {
 
   user;
 
-  iconMode: boolean;
+  iconMode = true;
 
   constructor(
     private userService: UserService,
