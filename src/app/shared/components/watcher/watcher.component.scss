@@ -1,5 +1,5 @@
 .whatcher-wrapper {
-  width: 218px;
+  width: 400px;
 
   .market-header {
     padding: 8px;
@@ -13,10 +13,16 @@
     max-height: calc(100vh - 124px);
     height: calc(100vh - 124px);
 
-    
+
     .market-stream-item {
       padding: 2px 8px;
       font-size: 12px;
+
+      &:hover {
+
+        border: 1px solid black;
+
+      }
     }
   }
 }
