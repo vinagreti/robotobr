@@ -12,7 +12,7 @@
         "https://vinagreti.github.io/robotobr/2.158c88ea95a1dc2b06a0.js",
         "https://vinagreti.github.io/robotobr/3.0775c2320f15f6022e24.js",
         "https://vinagreti.github.io/robotobr/4.95732cb874ed32dd1eee.js",
-        "https://vinagreti.github.io/robotobr/5.d42ca0536c2e3c61ea9f.js",
+        "https://vinagreti.github.io/robotobr/5.82680f0f87fa4cc5fe31.js",
         "https://vinagreti.github.io/robotobr/6.6205981878ffa1e1976f.js",
         "https://vinagreti.github.io/robotobr/7.28a760af1a8b6387282b.js",
         "https://vinagreti.github.io/robotobr/8.6489a32101c7d31824bd.js",
@@ -20,7 +20,7 @@
         "https://vinagreti.github.io/robotobr/index.html",
         "https://vinagreti.github.io/robotobr/main.718115a72e0b8aafc075.js",
         "https://vinagreti.github.io/robotobr/polyfills.c9121398e866940803fe.js",
-        "https://vinagreti.github.io/robotobr/runtime.a5bf0aa780cddffc440b.js",
+        "https://vinagreti.github.io/robotobr/runtime.d9e0398fcb2ce6aab296.js",
         "https://vinagreti.github.io/robotobr/styles.e62b1123aed8e486139e.css"
       ],
       "patterns": []
@@ -53,7 +53,7 @@
     "https://vinagreti.github.io/robotobr/2.158c88ea95a1dc2b06a0.js": "cd4738fee4289c4a001683b2d63f9cbd56ea473a",
     "https://vinagreti.github.io/robotobr/3.0775c2320f15f6022e24.js": "28e7429921125dfaf43ced386d98db2f41c56826",
     "https://vinagreti.github.io/robotobr/4.95732cb874ed32dd1eee.js": "98f60f4a4a19977ecf2401ba55db05a823ed02ca",
-    "https://vinagreti.github.io/robotobr/5.d42ca0536c2e3c61ea9f.js": "005d2f329413a3683bfedcb4dcdcf24ffa7e4de7",
+    "https://vinagreti.github.io/robotobr/5.82680f0f87fa4cc5fe31.js": "dc04c2dccf25f09e06e945a30b92d31a18d876e6",
     "https://vinagreti.github.io/robotobr/6.6205981878ffa1e1976f.js": "499d62d24f3aa135e11344e837f8b33d93ed11be",
     "https://vinagreti.github.io/robotobr/7.28a760af1a8b6387282b.js": "2c6b526b45ed7a3ffb49e61d295113dca31a1957",
     "https://vinagreti.github.io/robotobr/8.6489a32101c7d31824bd.js": "8d5200d1124e871baa71e9d86fbeee83ed1ff305",
@@ -70,10 +70,10 @@
     "https://vinagreti.github.io/robotobr/assets/styles/_theming.scss": "ad32ebb1ddefbcb00170d45cac78c4a7f6645d35",
     "https://vinagreti.github.io/robotobr/assets/styles/app-startup-spinner.css": "7740bdeb4d5837a0dd2dc55b5b1182780d08f6e6",
     "https://vinagreti.github.io/robotobr/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "https://vinagreti.github.io/robotobr/index.html": "c41ae6779a3261d525afedffb329bc78a5960b89",
+    "https://vinagreti.github.io/robotobr/index.html": "4e05451a16749ffb795f1fd37ca96f9fc56f8889",
     "https://vinagreti.github.io/robotobr/main.718115a72e0b8aafc075.js": "4728a55a5cd64adc2a73c2f70f87102e1129ab8a",
     "https://vinagreti.github.io/robotobr/polyfills.c9121398e866940803fe.js": "d5849ad3cd22b03e9e65bacd1cc184b24f4d26f1",
-    "https://vinagreti.github.io/robotobr/runtime.a5bf0aa780cddffc440b.js": "78e711b777d89996ec3fd7294145bbd555b71091",
+    "https://vinagreti.github.io/robotobr/runtime.d9e0398fcb2ce6aab296.js": "d49ed7986b81477627438fc6c540a3bc1b3c81bf",
     "https://vinagreti.github.io/robotobr/styles.e62b1123aed8e486139e.css": "1b6457aaf53882bbb010dd21e6415f1ce4863a10"
   },
   "navigationUrls": [

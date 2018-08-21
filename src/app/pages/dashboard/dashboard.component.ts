@@ -29,6 +29,8 @@ export class DashboardComponent implements OnInit {
     { label: 'SellBuy' },
   ];
 
+  private lastPrices: any = {};
+
   private _openMarkets: any = {};
 
   constructor(
@@ -90,8 +92,22 @@ export class DashboardComponent implements OnInit {
 
   onTrade(market, trade) {
     const marketFromTo = market.from + market.to;
+
     const price = trade ? trade.price : undefined;
-    this.title.setTitle(`${price} ${marketFromTo}`);
+
+    this.lastPrices[marketFromTo] = price;
+
+    this.refreshTitle();
+  }
+
+  private refreshTitle() {
+
+    const title = Object.keys(this.lastPrices)
+      .map(market => this.lastPrices[market])
+      .join(' | ');
+
+    this.title.setTitle(title);
+
   }
 
 }
