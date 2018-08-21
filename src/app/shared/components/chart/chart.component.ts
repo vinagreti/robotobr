@@ -65,7 +65,7 @@ export class ChartComponent implements OnInit, OnDestroy {
   }
 
   private updateChartData = (data) => {
-    console.log('updateChartData', this.title)
+
     this.lineChartData.dataTable = [['Time', 'Price']];
     if (data && data.length) {
       this.lineChartData.dataTable.push(...data);

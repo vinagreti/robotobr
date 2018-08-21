@@ -77,16 +77,19 @@ export class WatcherComponent implements OnInit {
 
     const endpoint = `${BINANCE_WS_ENDPOINT}/${this.market.from}${this.market.to}@trade`;
 
-    this.wsClient.connect(endpoint, 500).messages
-      .subscribe((msg: any) => {
+    this.wsClient.connect(endpoint, 200, (trade) => {
 
-        this.lastTrades = msg.map(trade => {
-          return new BinanceTradeEvent(JSON.parse(trade));
-        });
+      const tradeParsed = new BinanceTradeEvent(JSON.parse(trade));
 
-        this.trade.emit(this.lastTrades[0]);
+      return {
+        tradeTime: tradeParsed.tradeTime,
+        price: tradeParsed.price,
+        quantity: tradeParsed.quantity,
+      }
 
-      });
-
+    }).messages.subscribe((msg: any) => {
+      this.lastTrades = msg;
+      this.trade.emit(this.lastTrades[0]);
+    });
   }
 }

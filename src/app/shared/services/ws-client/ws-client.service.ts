@@ -11,7 +11,7 @@ export class WsClientService {
 
   constructor() { }
 
-  connect(url, limit = 10) {
+  connect(url, limit = 10, mapFn = (item) => item) {
 
     const connection = this.connection[url];
 
@@ -21,15 +21,15 @@ export class WsClientService {
 
     } else {
 
-      return this.connectToWs(url, limit);
+      return this.connectToWs(url, limit, mapFn);
 
     }
 
   }
 
-  private connectToWs(url, limit = 10): OpenConnection {
+  private connectToWs(url, limit, mapFn): OpenConnection {
 
-    const connection = this.openConnection(url, undefined, limit);
+    const connection = this.openConnection(url, limit, mapFn);
 
     this.connection[url] = connection;
 
@@ -38,7 +38,7 @@ export class WsClientService {
   }
 
 
-  private openConnection(url: string, connection?: OpenConnection, limit = 10): OpenConnection {
+  private openConnection(url: string, limit, mapFn, connection?: OpenConnection): OpenConnection {
 
     if (connection) {
 
@@ -53,15 +53,17 @@ export class WsClientService {
 
     }
 
-    connection.channel.onclose = () => this.openConnection(url, connection, limit);
+    connection.channel.onclose = () => this.openConnection(url, limit, mapFn, connection);
 
-    connection.channel.onerror = () => this.openConnection(url, connection, limit);
+    connection.channel.onerror = () => this.openConnection(url, limit, mapFn, connection);
 
-    connection.channel.onmessage = (a) => {
+    connection.channel.onmessage = (message) => {
 
       let currentMessages = connection.messages.getValue();
 
-      currentMessages.unshift(a.data);
+      const mappedData = mapFn(message.data);
+
+      currentMessages.unshift(mappedData);
 
       if (limit) {
 
