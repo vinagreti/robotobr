@@ -9,6 +9,10 @@ export class WsClientService {
     [key: string]: OpenConnection
   } = {};
 
+  private connecting: {
+    [key: string]: boolean
+  } = {};
+
   constructor() { }
 
   connect(url, limit = 10, mapFn = (item) => item) {
@@ -38,7 +42,9 @@ export class WsClientService {
   }
 
 
-  private openConnection(url: string, limit, mapFn, connection?: OpenConnection): OpenConnection {
+  private openConnection(url: string, limit, mapFn, connection?: OpenConnection, delay = 1e3): OpenConnection {
+
+    this.connecting[url] = true;
 
     if (connection) {
 
@@ -53,9 +59,12 @@ export class WsClientService {
 
     }
 
-    connection.channel.onclose = () => this.openConnection(url, limit, mapFn, connection);
-
-    connection.channel.onerror = () => this.openConnection(url, limit, mapFn, connection);
+    connection.channel.onclose = () => {
+      setTimeout(() => {
+        console.log(`WS connection closed. Tryng to reconnect to ${url}`);
+        this.openConnection(url, limit, mapFn, connection, 1e3)
+      }, 2e3);
+    };
 
     connection.channel.onmessage = (message) => {
 
@@ -74,6 +83,8 @@ export class WsClientService {
       connection.messages.next(currentMessages);
 
     };
+
+    this.connecting[url] = false;
 
     return connection;
 

@@ -9,12 +9,14 @@ import { MatSelectModule, MatButtonModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DialogModule } from '@app/shared/components/dialog/dialog.module';
 import { UpsertOrderModule } from '@app/shared/components/order/upsert-order/upsert-order.module';
+import { BalanceModule } from '@app/shared/components/balance/balance.module';
 
 @NgModule({
   imports: [
     CommonModule,
     DashboardRoutingModule,
     WatcherModule,
+    BalanceModule,
     MatButtonModule,
     FormsModule,
     MatSelectModule,
