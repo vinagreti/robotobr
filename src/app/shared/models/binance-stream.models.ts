@@ -29,3 +29,15 @@ export class BinanceTradeEvent {
     this.buyerAndMaker = data.m || undefined;
   }
 }
+
+export class BinanceBalance {
+  asset: string;
+  free: number;
+  locked: number;
+
+  constructor(data: any = {}) {
+    this.asset = data.asset;
+    this.free = data.free ? parseFloat(data.free) : 0;
+    this.locked = data.locked ? parseFloat(data.locked) : 0;
+  }
+}

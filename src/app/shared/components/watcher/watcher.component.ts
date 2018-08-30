@@ -14,6 +14,8 @@ export class WatcherComponent implements OnInit {
 
   lastTrades: BinanceTradeEvent[];
 
+  showChart: boolean;
+
   @Input()
   set market(v: TradeMarket) {
     if (this._market !== v) {

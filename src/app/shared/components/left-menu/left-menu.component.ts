@@ -10,9 +10,7 @@ export class LeftMenuComponent implements OnInit {
   @Input() iconMode = false;
 
   menuItems = [
-    { name: 'Bot', icon: 'home', routerPath: '' },
-    { name: 'Dashboard', icon: 'home', routerPath: '/dashboard' },
-    { name: 'Profile', icon: 'home', routerPath: '/account/profile' },
+    { name: 'Dashboard', icon: 'multiline_chart', routerPath: '/dashboard' },
   ];
 
   constructor() { }

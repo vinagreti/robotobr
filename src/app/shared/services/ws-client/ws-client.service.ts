@@ -1,21 +1,32 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { OpenConnection } from './ws-client.models';
 
+interface WsMemoryMap<T> {
+  [key: string]: T;
+}
+
+const MAP_DATA_AS_JSON = (data) => {
+  try {
+    return JSON.parse(data);
+  } catch (error) {
+    return data;
+  }
+};
 @Injectable()
 export class WsClientService {
 
-  private connection: {
-    [key: string]: OpenConnection
-  } = {};
+  private connection: WsMemoryMap<OpenConnection> = {};
 
-  private connecting: {
-    [key: string]: boolean
-  } = {};
+  private connecting: WsMemoryMap<boolean> = {};
 
-  constructor() { }
+  private releaseAndReconnectInterval;
 
-  connect(url, limit = 10, mapFn = (item) => item) {
+  constructor() {
+    // this.startGarbageCollector();
+  }
+
+  connect(url, limit = 10, mapFn?) {
 
     const connection = this.connection[url];
 
@@ -25,7 +36,7 @@ export class WsClientService {
 
     } else {
 
-      return this.connectToWs(url, limit, mapFn);
+      return this.connectToWs(url, limit, mapFn || MAP_DATA_AS_JSON);
 
     }
 
@@ -55,6 +66,9 @@ export class WsClientService {
       connection = connection ? connection : {
         channel: new WebSocket(url),
         messages: new BehaviorSubject<string[]>([]),
+        url: url,
+        mapFn: mapFn,
+        limit: limit,
       };
 
     }
@@ -62,7 +76,7 @@ export class WsClientService {
     connection.channel.onclose = () => {
       setTimeout(() => {
         console.log(`WS connection closed. Tryng to reconnect to ${url}`);
-        this.openConnection(url, limit, mapFn, connection, 1e3)
+        this.openConnection(url, limit, mapFn, connection, 1e3);
       }, 2e3);
     };
 
@@ -88,6 +102,38 @@ export class WsClientService {
 
     return connection;
 
+  }
+
+  private startGarbageCollector() {
+    this.releaseAndReconnectInterval = setInterval(() => {
+      const connections = Object.keys(this.connection).filter(key => {
+        return this.connection[key] && this.connection[key].channel;
+      }).map(key => {
+        return this.connection[key];
+      });
+      this.releaseAndReconnect(connections);
+    }, 10e3);
+  }
+
+  private releaseAndReconnect(connections = [], position = 0) {
+    if (connections.length) {
+      const connection = connections[position];
+      const nextPosition = position + 1;
+
+      connection.channel.close();
+
+      if (connections[nextPosition]) {
+        setTimeout(() => {
+          this.releaseAndReconnect(connections, nextPosition);
+        }, 1e3);
+      }
+    }
+  }
+
+  private stopGarbageCollector() {
+    if (this.releaseAndReconnectInterval) {
+      clearInterval(this.releaseAndReconnectInterval);
+    }
   }
 
 }

@@ -4,6 +4,7 @@ import { WatcherComponent } from './watcher.component';
 import { WsClientModule } from '../../services/ws-client/ws-client.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ChartModule } from '@app/shared/components/chart/chart.module';
+import { MatIconModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -11,6 +12,8 @@ import { ChartModule } from '@app/shared/components/chart/chart.module';
     WsClientModule,
     FlexLayoutModule,
     ChartModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   declarations: [WatcherComponent],
   exports: [WatcherComponent]

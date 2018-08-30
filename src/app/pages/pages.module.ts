@@ -7,6 +7,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
 import { UserServiceModule } from '../shared/services/user-service/user-service.module';
 import { LeftMenuModule } from '../shared/components/left-menu/left-menu.module';
+import { BalanceModule } from '@app/shared/components/balance/balance.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { LeftMenuModule } from '../shared/components/left-menu/left-menu.module'
     FlexLayoutModule,
     LeftMenuModule,
     MatDividerModule,
+    BalanceModule,
   ],
   declarations: [PagesComponent]
 })

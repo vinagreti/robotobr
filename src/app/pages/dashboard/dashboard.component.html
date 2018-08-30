@@ -21,6 +21,5 @@
 <hr>
 
 <div fxLayout="row" fxLayoutGap="16px">
-  <app-balance></app-balance>
   <app-watcher *ngFor="let market of openMarkets" [market]="market" (trade)="onTrade(market, $event)"></app-watcher>
 </div>

@@ -5,12 +5,17 @@
     <div class="item-padding">
 
 
-      <div>
+      <div routerLink="/" class="click">
         <mat-icon>android</mat-icon> &nbsp;
         <span *ngIf="!iconMode">RobotoBR</span>
       </div>
 
     </div>
+
+    <button mat-button class="toggle-icon-mode-btn" (click)="drawer2.toggle()">
+      <mat-icon>attach_money</mat-icon> &nbsp;
+      <span *ngIf="!iconMode">compact</span>
+    </button>
 
     <div fxFlex>
 
@@ -25,6 +30,10 @@
       <mat-icon *ngIf="iconMode">arrow_forward</mat-icon>
     </button>
 
+  </mat-drawer>
+
+  <mat-drawer #drawer2 mode="side" position="end" opened="false">
+    <app-balance></app-balance>
   </mat-drawer>
 
   <div class="pages-content">
