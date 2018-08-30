@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { WsClientService } from '@app/shared/services/ws-client/ws-client.service';
 import { environment } from '@env/environment';
 import { OpenConnection } from './../../services/ws-client/ws-client.models';
@@ -19,6 +19,8 @@ export class BalanceComponent implements OnInit {
 
   displayedColumns: string[] = ['asset', 'total', 'free', 'locked'];
 
+  @Input() assets: string[];
+
   constructor(
     private wsClient: WsClientService
   ) { }
@@ -35,23 +37,40 @@ export class BalanceComponent implements OnInit {
   private loadBalance() {
     this.balances$ = this.balanceWebsocket.messages.pipe(
       map((msgs: BinanceBalance[][]) => {
-        return msgs ? this.extractPositieBalances(msgs[0]) : undefined;
+        const messages = msgs || [];
+
+        let response;
+
+        if (this.assets && this.assets.length) {
+          response = this.extractCustomAssetsBalances(msgs[0]);
+        } else {
+          response = this.extractPositiveBalances(msgs[0]);
+        }
+
+        return response.sort((a, b) => {
+          if (a.asset < b.asset) {
+            return -1;
+          }
+          if (a.asset > b.asset) {
+            return 1;
+          }
+          return 0;
+        });
       })
     );
   }
 
-  private extractPositieBalances(balances: BinanceBalance[] = []) {
+  private extractPositiveBalances(balances: BinanceBalance[] = []) {
     return balances.map(balance => new BinanceBalance(balance))
       .filter((balance: BinanceBalance) => {
         return (balance.free + balance.locked) > 0;
-      }).sort((a, b) => {
-        if (a.asset < b.asset) {
-          return -1;
-        }
-        if (a.asset > b.asset) {
-          return 1;
-        }
-        return 0;
+      });
+  }
+
+  private extractCustomAssetsBalances(balances: BinanceBalance[] = []) {
+    return balances.map(balance => new BinanceBalance(balance))
+      .filter((balance: BinanceBalance) => {
+        return this.assets.indexOf[balance.asset];
       });
   }
 
