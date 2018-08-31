@@ -1,0 +1,7 @@
+<p>Execution report</p>
+
+<div *ngIf="(executionReport$ | async) as executionReport">
+
+  {{ executionReport | json }}
+
+</div>

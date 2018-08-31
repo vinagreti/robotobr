@@ -32,8 +32,9 @@
 
   </mat-drawer>
 
-  <mat-drawer #drawer2 mode="side" position="end" opened="false">
-    <app-balance [assets]="['ETH', 'BTC', 'BNB']"></app-balance>
+  <mat-drawer #drawer2 mode="side" position="end" opened="false" class="right-sidenav">
+    <app-balance [assets]="assets"></app-balance>
+    <app-execution-report></app-execution-report>
   </mat-drawer>
 
   <div class="pages-content">

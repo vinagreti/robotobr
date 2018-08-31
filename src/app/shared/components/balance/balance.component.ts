@@ -42,9 +42,9 @@ export class BalanceComponent implements OnInit {
         let response;
 
         if (this.assets && this.assets.length) {
-          response = this.extractCustomAssetsBalances(msgs[0]);
+          response = this.extractCustomAssetsBalances(messages[0]);
         } else {
-          response = this.extractPositiveBalances(msgs[0]);
+          response = this.extractPositiveBalances(messages[0]);
         }
 
         return response.sort((a, b) => {
@@ -70,7 +70,7 @@ export class BalanceComponent implements OnInit {
   private extractCustomAssetsBalances(balances: BinanceBalance[] = []) {
     return balances.map(balance => new BinanceBalance(balance))
       .filter((balance: BinanceBalance) => {
-        return this.assets.indexOf[balance.asset];
+        return this.assets.indexOf(balance.asset) > -1;
       });
   }
 

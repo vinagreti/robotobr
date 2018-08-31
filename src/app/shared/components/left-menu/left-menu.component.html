@@ -1,4 +1,4 @@
-<div fxLayout="column">
+<div fxLayout="column" fxLayoutAlign="start">
   <div fxFlex class="menu-item click" *ngFor="let menuItem of menuItems" [routerLink]="menuItem.routerPath">
     <mat-icon>{{ menuItem.icon }}</mat-icon> &nbsp;
     <span *ngIf="!iconMode">{{ menuItem.name }}</span>

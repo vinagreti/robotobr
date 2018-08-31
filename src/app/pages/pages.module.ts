@@ -8,6 +8,7 @@ import { PagesComponent } from './pages.component';
 import { UserServiceModule } from '../shared/services/user-service/user-service.module';
 import { LeftMenuModule } from '../shared/components/left-menu/left-menu.module';
 import { BalanceModule } from '@app/shared/components/balance/balance.module';
+import { ExecutionReportModule } from '@app/shared/components/execution-report/execution-report.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { BalanceModule } from '@app/shared/components/balance/balance.module';
     UserServiceModule,
     FlexLayoutModule,
     LeftMenuModule,
+    ExecutionReportModule,
     MatDividerModule,
     BalanceModule,
   ],

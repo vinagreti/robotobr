@@ -8,6 +8,8 @@ import { UserService } from '../shared/services/user-service/user.service';
 })
 export class PagesComponent implements OnInit {
 
+  assets = ['ETH', 'BTC', 'BNB', 'USDT'];
+
   user;
 
   iconMode = true;
