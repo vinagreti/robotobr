@@ -1,10 +1,10 @@
 // Do not change this import sequence
 // 1 - Theme
-@import './kissbot-theme';
+@import './robotobr-theme';
 // 2 - Constants
 @import './color-constants';
 // 3 - Classes
 @import './color-classes';
 
 // APPLY THE THEME TO THE MATERIAL COMPONENTS
-@include angular-material-theme($kissbot-theme);
+@include angular-material-theme($rbr-theme);

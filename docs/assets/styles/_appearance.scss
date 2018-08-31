@@ -15,26 +15,26 @@ body {
         text-decoration: none;
         color: inherit;
         &:hover {
-            color: $kissbot-primary-color;
+            color: $rbr-primary-color;
         }
     }
 
     .click {
         cursor: pointer;
     }
-    
+
     .text-center {
         text-align: center;
     }
-    
+
     .text-right {
         text-align: right;
     }
-    
+
     .app-spacer {
         flex: 1 1 auto;
     }
-    
+
     .toolbar-icon {
         padding: 0 14px;
     }

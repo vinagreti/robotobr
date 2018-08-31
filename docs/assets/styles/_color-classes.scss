@@ -1,41 +1,41 @@
 // Primary
-.kissbot-primary-color {
-  color: $kissbot-primary-color !important;
+.rbr-primary-color {
+  color: $rbr-primary-color !important;
 }
 
-.kissbot-primary-bg {
-  background-color: $kissbot-primary-bg !important;
-  color: mat-contrast($kissbot-theme-primary, default) !important;
+.rbr-primary-bg {
+  background-color: $rbr-primary-bg !important;
+  color: mat-contrast($rbr-theme-primary, default) !important;
 }
 
-.kissbot-primary-border-3px {
-  border: 3px solid $kissbot-primary-bg !important;
+.rbr-primary-border-3px {
+  border: 3px solid $rbr-primary-bg !important;
 }
 
 // Accent
-.kissbot-accent-color {
-  color: $kissbot-accent-color !important;
+.rbr-accent-color {
+  color: $rbr-accent-color !important;
 }
 
-.kissbot-accent-bg {
-  background-color: $kissbot-accent-bg !important;
-  color: mat-contrast($kissbot-theme-accent, default) !important;
+.rbr-accent-bg {
+  background-color: $rbr-accent-bg !important;
+  color: mat-contrast($rbr-theme-accent, default) !important;
 }
 
-.kissbot-accent-border-3px {
-  border: 3px solid $kissbot-accent-bg !important;
+.rbr-accent-border-3px {
+  border: 3px solid $rbr-accent-bg !important;
 }
 
 // Warn
-.kissbot-warn-color {
-  color: $kissbot-warn-color !important;
+.rbr-warn-color {
+  color: $rbr-warn-color !important;
 }
 
-.kissbot-warn-bg {
-  background-color: $kissbot-warn-bg !important;
-  color: mat-contrast($kissbot-theme-warn, default) !important;
+.rbr-warn-bg {
+  background-color: $rbr-warn-bg !important;
+  color: mat-contrast($rbr-theme-warn, default) !important;
 }
 
-.kissbot-warn-border-3px {
-  border: 3px solid $kissbot-warn-bg !important;
+.rbr-warn-border-3px {
+  border: 3px solid $rbr-warn-bg !important;
 }

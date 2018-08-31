@@ -2,12 +2,12 @@
 @include mat-core();
 
 // COLORS
-$kissbot-theme-primary: mat-palette($mat-teal, A400);
-$kissbot-theme-accent: mat-palette($mat-blue, 800);
-$kissbot-theme-warn: mat-palette($mat-orange);
+$rbr-theme-primary: mat-palette($mat-teal, A400);
+$rbr-theme-accent: mat-palette($mat-blue, 800);
+$rbr-theme-warn: mat-palette($mat-orange);
 
 // THEME
-$kissbot-theme: mat-light-theme($kissbot-theme-primary, $kissbot-theme-accent, $kissbot-theme-warn);
+$rbr-theme: mat-light-theme($rbr-theme-primary, $rbr-theme-accent, $rbr-theme-warn);
 
 
 button.mat-raised-button.mat-primary{
