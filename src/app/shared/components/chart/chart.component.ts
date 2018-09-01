@@ -1,83 +1,56 @@
-import { Component, OnInit, Input, EventEmitter, OnDestroy } from '@angular/core';
-import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { Subscription } from 'rxjs';
+import { Component, AfterViewInit, Input } from '@angular/core';
+import { ScriptService } from '@app/shared/services/script';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss']
 })
-export class ChartComponent implements OnInit, OnDestroy {
+export class ChartComponent implements AfterViewInit {
 
-  lineChartData = {
-    chartType: 'LineChart',
-    dataTable: [
-      ['Time', 'Price'],
-      ['0', 0]
-    ],
-    options: {
-      legend: {
-        position: 'bottom',
-      }
-    }
-  };
+  id = Date.now();
+
+  chart;
+
+  private tradingView;
+
+  @Input() market: string;
 
   @Input() title: string;
 
-  @Input()
-  set data(v: any[]) {
-    if (v && JSON.stringify(this._data) !== JSON.stringify(v)) {
-      this._data = v;
-      this.dataChanges.emit(this._data);
-    }
+  constructor(
+    private script: ScriptService
+  ) { }
+
+  ngAfterViewInit() {
+    this.loadScripts();
   }
 
-  get data() {
-    return this._data;
+  initTradingView() {
+    this.chart = new this.tradingView.widget({
+      autosize: true,
+      symbol: `BINANCE:${this.market}`,
+      interval: '15',
+      timezone: 'Etc/UTC',
+      theme: 'Light',
+      style: '1',
+      locale: 'br',
+      toolbar_bg: '#f1f3f6',
+      enable_publishing: false,
+      allow_symbol_change: false,
+      container_id: this.id
+    });
   }
 
-  private dataChanges = new EventEmitter();
+  private loadScripts() {
+    this.script.load('https://s3.tradingview.com/tv.js', 'TradingView')
+      .then(tradingView => {
+        this.tradingView = tradingView;
 
-  private dataChangesSubscription: Subscription;
-
-  private _data = [];
-
-  constructor() { }
-
-  ngOnInit() {
-    this.subscribeToDataChanges()
-  }
-
-  ngOnDestroy() {
-    this.unsubscribeToDataChanges();
-  }
-
-  private unsubscribeToDataChanges() {
-    this.dataChangesSubscription.unsubscribe();
-  }
-
-  private subscribeToDataChanges() {
-    this.dataChangesSubscription = this.dataChanges
-    .pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-    ).subscribe(this.updateChartData)
-  }
-
-  private updateChartData = (data) => {
-
-    this.lineChartData.dataTable = [['Time', 'Price']];
-    if (data && data.length) {
-      this.lineChartData.dataTable.push(...data);
-    } else {
-      this.lineChartData.dataTable.push([0, 0]);
-    }
-
-    if (this.title) {
-      this.lineChartData.options['title'] = this.title;
-    }
-
-    this.lineChartData = Object.create(this.lineChartData);
+        if (this.market) {
+          this.initTradingView();
+        }
+      });
   }
 
 }

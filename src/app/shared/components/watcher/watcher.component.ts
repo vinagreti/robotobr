@@ -16,12 +16,18 @@ export class WatcherComponent implements OnInit {
 
   showChart: boolean;
 
+  tradingViewMarket;
+
+  marketChartLink: string;
+
   @Input()
   set market(v: TradeMarket) {
     if (this._market !== v) {
       this._market = v;
       if (this._market) {
         this.coonnectToWebsocket();
+        this.getMarketChartLink();
+        this.setTradingViewMarket();
       }
     }
   }
@@ -60,8 +66,12 @@ export class WatcherComponent implements OnInit {
     return color;
   }
 
-  getMarketChartLink(market) {
-    return `https://www.binance.com/en/trade/${market.from.toUpperCase()}_${market.to.toUpperCase()}`;
+  private setTradingViewMarket() {
+    this.tradingViewMarket = `${this.market.from.toUpperCase()}${this.market.to.toUpperCase()}`;
+  }
+
+  private getMarketChartLink() {
+    this.marketChartLink = `https://www.binance.com/en/trade/${this.market.from.toUpperCase()}_${this.market.to.toUpperCase()}`;
   }
 
   get chartData() {

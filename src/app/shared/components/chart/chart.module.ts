@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartComponent } from './chart.component';
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { ScriptServiceModule } from '@app/shared/services/script';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    Ng2GoogleChartsModule,
+    ScriptServiceModule,
   ],
   declarations: [ChartComponent],
   exports: [ChartComponent]
