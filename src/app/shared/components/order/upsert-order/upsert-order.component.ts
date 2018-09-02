@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UpsertOrderComponent implements OnInit {
 
-  @Input() formData: any = {};
+  @Input() form: any = {};
 
   constructor() { }
 

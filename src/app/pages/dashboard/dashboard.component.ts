@@ -3,6 +3,7 @@ import { TradeMarket, RobotoTradeType } from '@app/shared/models/market.model';
 import { DialogService } from '@app/shared/components/dialog/dialog.service';
 import { UpsertOrderComponent } from '@app/shared/components/order/upsert-order/upsert-order.component';
 import { Title } from '@angular/platform-browser';
+import { RobotoApiService } from '@app/shared/services/roboto-api/roboto-api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
   private _openMarkets: any = {};
 
   constructor(
+    private robotoApi: RobotoApiService,
     private dialogservice: DialogService,
     private title: Title,
   ) { }
@@ -61,20 +63,18 @@ export class DashboardComponent implements OnInit {
 
       const dialogRef = this.dialogservice.open(UpsertOrderComponent, {
         title: operationId,
-      });
-
-      dialogRef.componentInstance.child.subscribe((orderComponent: UpsertOrderComponent) => {
-
-        /*         orderComponent.create.subscribe(order => {
-                  console.log('order create', order);
-                  dialogRef.close();
-                });
-        
-                orderComponent.cancel.subscribe(() => {
-                  console.log('order cancel');
-                  dialogRef.close();
-                }); */
-
+        actions: [
+          { label: 'Create', callback: this.createOrder }
+        ],
+        context: {
+          form: {
+            symbol: 'ETHUSDT',
+            side: 'BUY',
+            quantity: '0.1',
+            price: '271',
+            type: 'LIMIT',
+          }
+        }
       });
 
       setTimeout(() => {
@@ -98,6 +98,15 @@ export class DashboardComponent implements OnInit {
     this.lastPrices[marketFromTo] = price;
 
     this.refreshTitle();
+  }
+
+  private createOrder = (context) => {
+    console.log('createOrder', context);
+    const order = context.form;
+    this.robotoApi.post('createOrder', order).subscribe(res => {
+      console.log('CREATE ORDER', res);
+    });
+
   }
 
   private refreshTitle() {

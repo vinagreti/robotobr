@@ -14,4 +14,9 @@ export class RobotoApiService {
     const endpoint = `${environment.robotoApi}/${operation}`;
     return this.http.get(endpoint, params);
   }
+
+  post = (operation, body: any = {}): Observable<any> => {
+    const endpoint = `${environment.robotoApi}/${operation}`;
+    return this.http.post(endpoint, body);
+  }
 }
