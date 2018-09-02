@@ -7,7 +7,8 @@ import {
   ComponentRef,
   ViewContainerRef,
   Output,
-  EventEmitter
+  EventEmitter,
+  Input
 } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { DialogAction } from './dialog.models';
@@ -32,6 +33,8 @@ export class DialogComponent implements OnInit {
   context: any = {};
 
   loaded: boolean;
+
+  @Input() actionsMode = 'bottom';
 
   @ViewChild('childContainer', { read: ViewContainerRef }) childContainer: ViewContainerRef;
 

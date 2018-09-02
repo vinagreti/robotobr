@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-upsert-order',
@@ -7,21 +7,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class UpsertOrderComponent implements OnInit {
 
-  @Output() create = new EventEmitter();
-
-  @Output() cancel = new EventEmitter();
+  @Input() formData: any = {};
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  onCancel() {
-    this.cancel.emit();
-  }
-
-  onCreate() {
-    this.create.emit({});
   }
 
 }

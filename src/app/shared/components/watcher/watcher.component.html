@@ -3,6 +3,10 @@
     <div fxLayout="row" fxLayoutAlign="space-between">
       <mat-icon (click)="showChart = !showChart" class="click">multiline_chart</mat-icon>
       &nbsp;
+      <mat-icon (click)="showStream = !showStream" class="click">search</mat-icon>
+      &nbsp;
+      <mat-icon (click)="showStream = !showStream" class="click">search</mat-icon>
+      &nbsp;
       <a fxFlex [href]="marketChartLink" target="_blank">
         {{ market.from | uppercase }}
       </a>
@@ -14,7 +18,7 @@
   <div fxFlex *ngIf="showChart && tradingViewMarket" class="chart-wrapper">
     <app-chart [title]="market.label" [market]="tradingViewMarket"></app-chart>
   </div>
-  <div fxFlex>
+  <div fxFlex *ngIf="showStream">
     <div class="market-stream">
       <div *ngFor="let trade of lastTrades" class="market-stream-item" [ngStyle]="{'backgroundColor': getBgColorBasedOnVolume(trade.quantity), 'color': getColorBasedOnVolume(trade.quantity)}">
         <div fxLayout="row" fxLayoutAlign="space-between">

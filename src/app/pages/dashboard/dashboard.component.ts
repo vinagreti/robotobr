@@ -65,15 +65,15 @@ export class DashboardComponent implements OnInit {
 
       dialogRef.componentInstance.child.subscribe((orderComponent: UpsertOrderComponent) => {
 
-        orderComponent.create.subscribe(order => {
-          console.log('order create', order);
-          dialogRef.close();
-        });
-
-        orderComponent.cancel.subscribe(() => {
-          console.log('order cancel');
-          dialogRef.close();
-        });
+        /*         orderComponent.create.subscribe(order => {
+                  console.log('order create', order);
+                  dialogRef.close();
+                });
+        
+                orderComponent.cancel.subscribe(() => {
+                  console.log('order cancel');
+                  dialogRef.close();
+                }); */
 
       });
 

@@ -16,6 +16,8 @@ export class WatcherComponent implements OnInit {
 
   showChart: boolean;
 
+  showStream: boolean;
+
   tradingViewMarket;
 
   marketChartLink: string;

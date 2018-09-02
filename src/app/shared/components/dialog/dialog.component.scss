@@ -1,6 +1,16 @@
-.dialog-child-wrapper {
+.dialog-child-wrapper, .dialog-actions-wrapper {
   padding: 16px;
+}
 
+.dialog-child-wrapper {
+  display: block;
+  overflow: auto;
+  height: 100%;
+  min-height: 100%;
+}
+
+.app-dialog-wrapper {
+  height: 100%;
 }
 
 .dialog-spinner {

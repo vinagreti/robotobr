@@ -1,35 +1,45 @@
-<mat-toolbar color="primary">
+<div class="app-dialog-wrapper" fxLayout="column">
+  <mat-toolbar color="primary">
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="start center">
+      <div>
+        <h3>{{ title }}</h3>
+      </div>
+      <div fxFlex>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <div *ngIf="actions && actionsMode === 'top'">
+            <mat-menu #dialogActionsMenu="matMenu">
+              <button *ngFor="let action of actions" mat-menu-item (click)="action.callback(context)">
+                <span *ngIf="action.label">{{ action.label }}</span>
+              </button>
+            </mat-menu>
 
-  <div fxLayout="row" fxFlexFill fxLayoutAlign="start center">
-    <div>
-      <button type="button" mat-icon-button class="uppercase" mat-dialog-close>
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-    </div>
-    <div>
-      <h1>&nbsp; {{ title }}</h1>
-    </div>
-    <div fxFlex>
-      <div fxLayout="row" fxLayoutAlign="end center">
-        <div *ngIf="actions">
-          <mat-menu #dialogActionsMenu="matMenu">
-            <button *ngFor="let action of actions" mat-menu-item (click)="action.callback(context)">
-              <span *ngIf="action.label">{{ action.label }}</span>
+            <button mat-icon-button [matMenuTriggerFor]="dialogActionsMenu">
+              <mat-icon>more_vert</mat-icon>
             </button>
-          </mat-menu>
-
-          <button mat-icon-button [matMenuTriggerFor]="dialogActionsMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
+          </div>
         </div>
       </div>
     </div>
+  </mat-toolbar>
+
+  <div fxFlex>
+    <div class="dialog-child-wrapper">
+      <template #childContainer></template>
+      <mat-spinner class="dialog-spinner" *ngIf="!loaded"></mat-spinner>
+    </div>
   </div>
 
-</mat-toolbar>
 
-<div class="dialog-child-wrapper">
-  <template #childContainer></template>
+  <div fxFlexAlign="end">
+    <div class="dialog-actions-wrapper">
+      <button mat-stroked-button mat-dialog-close>
+        Cancel
+      </button>
+      <ng-container *ngIf="actions && actionsMode === 'bottom'">
+        <button *ngFor="let action of actions" mat-raised-button (click)="action.callback(context)">
+          <span *ngIf="action.label">{{ action.label }}</span>
+        </button>
+      </ng-container>
+    </div>
+  </div>
 </div>
-
-<mat-spinner class="dialog-spinner" *ngIf="!loaded"></mat-spinner>
