@@ -32,8 +32,9 @@
 
   </mat-drawer>
 
-  <mat-drawer #drawer2 mode="side" position="end" opened="false" class="right-sidenav">
+  <mat-drawer #drawer2 mode="side" position="end" opened="true" class="right-sidenav">
     <app-balance [assets]="assets"></app-balance>
+    <app-my-open-orders></app-my-open-orders>
     <app-execution-report></app-execution-report>
   </mat-drawer>
 

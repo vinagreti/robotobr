@@ -17,7 +17,7 @@ export class BalanceComponent implements OnInit {
 
   balanceWebsocket: OpenConnection;
 
-  displayedColumns: string[] = ['asset', 'total', 'free', 'locked'];
+  displayedColumns: string[] = ['asset', 'free', 'locked', 'total'];
 
   @Input() assets: string[];
 

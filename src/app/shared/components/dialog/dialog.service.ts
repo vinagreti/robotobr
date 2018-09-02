@@ -17,8 +17,8 @@ export class DialogService {
     const dialogInstance: MatDialogRef<DialogComponent> = this.dialog.open(
       DialogComponent,
       {
-        width: config.fullScreen ? (config.width || '100vw') : '25vw',
-        height: config.fullScreen ? (config.heigth || '100vh') : '50vh',
+        width: config.fullScreen ? (config.width || '100vw') : '350px',
+        height: config.fullScreen ? (config.heigth || '100vh') : '350px',
         panelClass: config.fullScreen ? 'app-dialog full-screen-dialog' : 'app-dialog',
       }
     );

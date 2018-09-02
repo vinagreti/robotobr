@@ -1,28 +1,23 @@
 <ng-container *ngIf="(balances$ | async) as balances">
 
-  <table mat-table [dataSource]="balances" class="mat-elevation-z8" *ngIf="balances.length else retrievingBalance">
+  <table mat-table [dataSource]="balances" class="app-balance-table mat-elevation-z8" *ngIf="balances.length else retrievingBalance">
 
     <ng-container matColumnDef="asset">
-      <th mat-header-cell *matHeaderCellDef> Asset </th>
-      <td mat-cell *matCellDef="let balance"> {{balance.asset}} </td>
+      <td mat-cell *matCellDef="let balance" title="Asset"> {{balance.asset}} </td>
     </ng-container>
 
     <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef> Total </th>
-      <td mat-cell *matCellDef="let balance"> {{ (balance.free + balance.locked) | number:'1.8-8' }} </td>
+      <td mat-cell *matCellDef="let balance" title="Total"> {{ (balance.free + balance.locked) | number:'1.8-8' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="free">
-      <th mat-header-cell *matHeaderCellDef> Free </th>
-      <td mat-cell *matCellDef="let balance"> {{balance.free | number:'1.8-8' }} </td>
+      <td mat-cell *matCellDef="let balance" title="Free"> {{balance.free | number:'1.8-8' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="locked">
-      <th mat-header-cell *matHeaderCellDef> Locked </th>
-      <td mat-cell *matCellDef="let balance" [ngClass]="{'rbr-warn-color': balance.locked}"> {{balance.locked | number:'1.8-8' }} </td>
+      <td mat-cell *matCellDef="let balance" title="Locked" [ngClass]="{'rbr-warn-color': balance.locked}"> {{balance.locked | number:'1.8-8' }} </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 

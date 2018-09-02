@@ -9,6 +9,7 @@ import { UserServiceModule } from '../shared/services/user-service/user-service.
 import { LeftMenuModule } from '../shared/components/left-menu/left-menu.module';
 import { BalanceModule } from '@app/shared/components/balance/balance.module';
 import { ExecutionReportModule } from '@app/shared/components/execution-report/execution-report.module';
+import { MyOpenOrdersModule } from '@app/shared/components/my-open-orders/my-open-orders.module';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { ExecutionReportModule } from '@app/shared/components/execution-report/e
     ExecutionReportModule,
     MatDividerModule,
     BalanceModule,
+    MyOpenOrdersModule,
   ],
   declarations: [PagesComponent]
 })
