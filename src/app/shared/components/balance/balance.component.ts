@@ -3,7 +3,7 @@ import { WsClientService } from '@app/shared/services/ws-client/ws-client.servic
 import { environment } from '@env/environment';
 import { OpenConnection } from './../../services/ws-client/ws-client.models';
 import { map } from 'rxjs/operators';
-import { BinanceBalance } from '@app/shared/models/binance-stream.models';
+import { AssetBalance } from '@app/shared/models/binance-stream.models';
 
 const ENDPOINT_BALANCE = `${environment.robotoWs}/balance`;
 @Component({
@@ -30,13 +30,18 @@ export class BalanceComponent implements OnInit {
     this.loadBalance();
   }
 
+  getTotal(balance) {
+    return parseFloat(balance.free) + parseFloat(balance.locked);
+  }
+
   private createBalanceSocket() {
     this.balanceWebsocket = this.wsClient.connect(ENDPOINT_BALANCE);
   }
 
   private loadBalance() {
     this.balances$ = this.balanceWebsocket.messages.pipe(
-      map((msgs: BinanceBalance[][]) => {
+      map((msgs: AssetBalance[][]) => {
+
         const messages = msgs || [];
 
         let response;
@@ -60,18 +65,16 @@ export class BalanceComponent implements OnInit {
     );
   }
 
-  private extractPositiveBalances(balances: BinanceBalance[] = []) {
-    return balances.map(balance => new BinanceBalance(balance))
-      .filter((balance: BinanceBalance) => {
-        return (balance.free + balance.locked) > 0;
-      });
+  private extractPositiveBalances(balances: AssetBalance[] = []) {
+    return balances.filter((balance: AssetBalance) => {
+      return this.getTotal(balance) > 0;
+    });
   }
 
-  private extractCustomAssetsBalances(balances: BinanceBalance[] = []) {
-    return balances.map(balance => new BinanceBalance(balance))
-      .filter((balance: BinanceBalance) => {
-        return this.assets.indexOf(balance.asset) > -1;
-      });
+  private extractCustomAssetsBalances(balances: AssetBalance[] = []) {
+    return balances.filter((balance: AssetBalance) => {
+      return this.assets.indexOf(balance.asset) > -1;
+    });
   }
 
 }

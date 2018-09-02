@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { WsClientService } from '@app/shared/services/ws-client/ws-client.service';
-import { BinanceTradeEvent } from '@app/shared/models/binance-stream.models';
 import { TradeMarket } from '@app/shared/models/market.model';
+import { BinanceTradeEvent } from '@app/shared/models/binance-ws-models';
 
 const BINANCE_WS_ENDPOINT = 'wss://stream.binance.com:9443/ws';
 

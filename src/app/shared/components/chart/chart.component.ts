@@ -31,7 +31,7 @@ export class ChartComponent implements AfterViewInit {
       autosize: true,
       symbol: `BINANCE:${this.market}`,
       interval: '15',
-      timezone: 'Etc/UTC',
+      timezone: 'America/Sao_Paulo',
       theme: 'Light',
       style: '1',
       locale: 'br',

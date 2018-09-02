@@ -1,3 +1,43 @@
-<p>
-  my-open-orders works!
-</p>
+<h3>Open orders</h3>
+<ng-container *ngIf="(myOpenOrders$ | async) as myOpenOrders">
+
+  <table mat-table [dataSource]="myOpenOrders[0]" class="app-my-orders-table mat-elevation-z8" *ngIf="myOpenOrders.length else retrievingBalance">
+
+    <ng-container matColumnDef="symbol">
+      <td mat-cell *matCellDef="let myOpenOrder" title="Market"> {{myOpenOrder.symbol}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <td mat-cell *matCellDef="let myOpenOrder" title="Type"> {{ myOpenOrder.type }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="executed">
+      <td mat-cell *matCellDef="let myOpenOrder" title="executedQty"> {{myOpenOrder.executedQty | number:'1.2-2' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <td mat-cell *matCellDef="let myOpenOrder" title="Quantity"> {{myOpenOrder.origQty | number:'1.0-4' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <td mat-cell *matCellDef="let myOpenOrder" title="Price"> {{myOpenOrder.price | number:'1.0-4' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <td mat-cell *matCellDef="let myOpenOrder" title="Price"> {{getTotal(myOpenOrder) | number:'1.2-2' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="remove">
+      <td mat-cell *matCellDef="let myOpenOrder" title="Remove">
+        <button type="button" (click)="cancelOrder(myOpenOrder)">x</button>
+      </td>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</ng-container>
+
+<ng-template #retrievingBalance>
+  Getting my orders...
+</ng-template>

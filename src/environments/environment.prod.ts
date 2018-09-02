@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  robotoWs: 'ws://localhost:1337',
+  robotoWs: 'ws://localhost:80',
+  robotoApi: '//localhost:80',
 };
