@@ -5,6 +5,8 @@ import { UpsertOrderComponent } from '@app/shared/components/order/upsert-order/
 import { Title } from '@angular/platform-browser';
 import { RobotoApiService } from '@app/shared/services/roboto-api/roboto-api.service';
 import { BinanceOrder } from '@app/shared/models/binance.models';
+import { MatDialogRef } from '@angular/material';
+import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -65,7 +67,7 @@ export class DashboardComponent implements OnInit {
       const dialogRef = this.dialogservice.open(UpsertOrderComponent, {
         title: operationId,
         actions: [
-          { label: 'Create', callback: this.createOrder }
+          { label: 'Create', callback: (res) => { this.createOrder(res.form, dialogRef); } }
         ],
         context: {
           form: {
@@ -101,14 +103,18 @@ export class DashboardComponent implements OnInit {
     this.refreshTitle();
   }
 
-  private createOrder = (context) => {
+  private createOrder = (order: BinanceOrder, dialog: MatDialogRef<DialogComponent>) => {
 
-    console.log('createOrder', context);
-
-    const order = new BinanceOrder(context.form);
+    order = new BinanceOrder(order);
 
     this.robotoApi.post('createOrder', order).subscribe(res => {
-      console.log('CREATE ORDER', res);
+
+      dialog.close();
+
+    }, err => {
+
+      console.log('ERROR CREATING ORDER', err);
+
     });
 
   }

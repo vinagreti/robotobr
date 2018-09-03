@@ -27,7 +27,7 @@
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <input matInput name="price" placeholder="price" [(ngModel)]="form.price">
+      <input matInput name="price" placeholder="price" [(ngModel)]="form.price" (ngModelChange)="calcByPrice()">
     </mat-form-field>
 
   </div>
@@ -36,7 +36,7 @@
   <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
-      <input matInput name="total" placeholder="total" [(ngModel)]="total" (ngModelChange)="calcBytotal()">
+      <input matInput name="total" placeholder="total" [(ngModel)]="total" (ngModelChange)="calcByTotal()">
     </mat-form-field>
 
 

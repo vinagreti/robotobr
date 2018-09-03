@@ -26,13 +26,25 @@ export class UpsertOrderComponent implements OnInit {
   ngOnInit() {
   }
 
-  calcBytotal() {
+  calcByTotal() {
 
     if (this.form.price && this.form.price > 0) {
 
       const quantity = this.total / this.form.price;
 
-      console.log('CALC BY TOTAL', this.form, quantity);
+      this.form.quantity = quantity;
+
+      return this.form.quantity;
+
+    }
+
+  }
+
+  calcByPrice() {
+
+    if (this.form.price && this.form.price > 0) {
+
+      const quantity = this.total / this.form.price;
 
       this.form.quantity = quantity;
 
