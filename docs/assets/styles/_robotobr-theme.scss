@@ -9,7 +9,5 @@ $rbr-theme-warn: mat-palette($mat-orange);
 // THEME
 $rbr-theme: mat-light-theme($rbr-theme-primary, $rbr-theme-accent, $rbr-theme-warn);
 
-
-button.mat-raised-button.mat-primary{
-  color: white;
-}
+// THIRD PARTY CUSTOMIZATIONS
+@import './material-custom';

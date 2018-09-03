@@ -4,6 +4,7 @@ import { DialogService } from '@app/shared/components/dialog/dialog.service';
 import { UpsertOrderComponent } from '@app/shared/components/order/upsert-order/upsert-order.component';
 import { Title } from '@angular/platform-browser';
 import { RobotoApiService } from '@app/shared/services/roboto-api/roboto-api.service';
+import { BinanceOrder } from '@app/shared/models/binance.models';
 
 @Component({
   selector: 'app-dashboard',
@@ -70,8 +71,8 @@ export class DashboardComponent implements OnInit {
           form: {
             symbol: 'ETHUSDT',
             side: 'BUY',
-            quantity: '0.1',
-            price: '271',
+            quantity: 0.1,
+            price: 271,
             type: 'LIMIT',
           }
         }
@@ -101,8 +102,11 @@ export class DashboardComponent implements OnInit {
   }
 
   private createOrder = (context) => {
+
     console.log('createOrder', context);
-    const order = context.form;
+
+    const order = new BinanceOrder(context.form);
+
     this.robotoApi.post('createOrder', order).subscribe(res => {
       console.log('CREATE ORDER', res);
     });

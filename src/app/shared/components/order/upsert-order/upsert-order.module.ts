@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UpsertOrderComponent } from './upsert-order.component';
-import { MatButtonModule, MatDialogModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     FormsModule,
     MatInputModule,
+    MatSelectModule,
     FlexLayoutModule,
   ],
   declarations: [UpsertOrderComponent],

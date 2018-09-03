@@ -1,7 +1,45 @@
 <form role="form">
 
-  <mat-form-field>
-    <input matInput name="orderType" placeholder="orderType" [(ngModel)]="form.type">
-  </mat-form-field>
+  <div fxLayout="row" fxLayoutGap="8px">
+
+    <mat-form-field fxFlex>
+      <mat-select placeholder="Market" name="Market" [(ngModel)]="form.symbol">
+        <mat-option *ngFor="let market of markets" [value]="market">
+          {{market}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <mat-select placeholder="Side" name="Side" [(ngModel)]="form.side">
+        <mat-option *ngFor="let side of sides" [value]="side">
+          {{side}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="8px">
+
+    <mat-form-field fxFlex>
+      <input matInput name="quantity" placeholder="quantity" [(ngModel)]="form.quantity">
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput name="price" placeholder="price" [(ngModel)]="form.price">
+    </mat-form-field>
+
+  </div>
+
+
+  <div fxLayout="row" fxLayoutGap="8px">
+
+    <mat-form-field fxFlex>
+      <input matInput name="total" placeholder="total" [(ngModel)]="total" (ngModelChange)="calcBytotal()">
+    </mat-form-field>
+
+
+  </div>
 
 </form>
