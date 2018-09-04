@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { WsClientService } from '@app/shared/services/ws-client/ws-client.service';
 import { environment } from '@env/environment';
 import { OpenConnection } from './../../services/ws-client/ws-client.models';
@@ -6,6 +6,12 @@ import { map } from 'rxjs/operators';
 import { AssetBalance } from '@app/shared/models/binance-stream.models';
 
 const ENDPOINT_BALANCE = `${environment.robotoWs}/balance`;
+
+export interface BalanceSelectionEvent {
+  asset: string;
+  value: number;
+}
+
 @Component({
   selector: 'app-balance',
   templateUrl: './balance.component.html',
@@ -21,6 +27,8 @@ export class BalanceComponent implements OnInit {
 
   @Input() assets: string[];
 
+  @Output() balanceSelected = new EventEmitter<BalanceSelectionEvent>();
+
   constructor(
     private wsClient: WsClientService
   ) { }
@@ -32,6 +40,14 @@ export class BalanceComponent implements OnInit {
 
   getTotal(balance) {
     return parseFloat(balance.free) + parseFloat(balance.locked);
+  }
+
+  emitBalanceSelected(balance: AssetBalance) {
+    const event: BalanceSelectionEvent = {
+      asset: balance.asset,
+      value: parseFloat(balance.free)
+    };
+    this.balanceSelected.emit(event);
   }
 
   private createBalanceSocket() {

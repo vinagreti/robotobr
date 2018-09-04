@@ -17,7 +17,7 @@ export class MyOpenOrdersComponent implements OnInit {
 
   myOpenOrderWebsocket: OpenConnection;
 
-  displayedColumns: string[] = ['symbol', 'type', 'executed', 'quantity', 'price', 'total', 'remove'];
+  displayedColumns: string[] = ['symbol', 'executed', 'quantity', 'price', 'total', 'remove'];
 
   @Input() assets: string[];
 

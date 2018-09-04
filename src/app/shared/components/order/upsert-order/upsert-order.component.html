@@ -3,15 +3,15 @@
   <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
-      <mat-select placeholder="Market" name="Market" [(ngModel)]="form.symbol">
+      <mat-select placeholder="Market" name="Market" [(ngModel)]="market">
         <mat-option *ngFor="let market of markets" [value]="market">
-          {{market}}
+          {{market.symbol}}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <mat-select placeholder="Side" name="Side" [(ngModel)]="form.side">
+      <mat-select placeholder="Side" name="Side" [(ngModel)]="side">
         <mat-option *ngFor="let side of sides" [value]="side">
           {{side}}
         </mat-option>
@@ -23,11 +23,11 @@
   <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
-      <input matInput name="quantity" placeholder="quantity" [(ngModel)]="form.quantity">
+      <input matInput type="number" name="quantity" [placeholder]="(market ? market.from : '') + ' quantity'" [(ngModel)]="quantity">
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <input matInput name="price" placeholder="price" [(ngModel)]="form.price" (ngModelChange)="calcByPrice()">
+      <input matInput type="number" name="price" [placeholder]="(market ? market.from : '') + ' price'" [(ngModel)]="price">
     </mat-form-field>
 
   </div>
@@ -36,7 +36,7 @@
   <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
-      <input matInput name="total" placeholder="total" [(ngModel)]="total" (ngModelChange)="calcByTotal()">
+      <input matInput type="number" name="total" [placeholder]="(market ? market.to : '') + ' total'" [(ngModel)]="total">
     </mat-form-field>
 
 

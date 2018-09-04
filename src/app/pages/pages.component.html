@@ -33,7 +33,8 @@
   </mat-drawer>
 
   <mat-drawer #drawer2 mode="side" position="end" opened="true" class="right-sidenav">
-    <app-balance [assets]="assets"></app-balance>
+    <app-balance [assets]="assets" (balanceSelected)="setNewOrderValuesBasesOnBalanceSelected($event)"></app-balance>
+    <app-upsert-order></app-upsert-order>
     <app-my-open-orders></app-my-open-orders>
     <app-execution-report></app-execution-report>
   </mat-drawer>

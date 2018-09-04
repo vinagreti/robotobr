@@ -10,6 +10,7 @@ import { LeftMenuModule } from '../shared/components/left-menu/left-menu.module'
 import { BalanceModule } from '@app/shared/components/balance/balance.module';
 import { ExecutionReportModule } from '@app/shared/components/execution-report/execution-report.module';
 import { MyOpenOrdersModule } from '@app/shared/components/my-open-orders/my-open-orders.module';
+import { UpsertOrderModule } from '@app/shared/components/order/upsert-order/upsert-order.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { MyOpenOrdersModule } from '@app/shared/components/my-open-orders/my-ope
     MatDividerModule,
     BalanceModule,
     MyOpenOrdersModule,
+    UpsertOrderModule,
   ],
   declarations: [PagesComponent]
 })

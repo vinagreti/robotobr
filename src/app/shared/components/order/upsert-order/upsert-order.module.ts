@@ -4,6 +4,7 @@ import { UpsertOrderComponent } from './upsert-order.component';
 import { MatButtonModule, MatDialogModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { UpsertOrderService } from '@app/shared/components/order/upsert-order/upsert-order.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSelectModule,
     FlexLayoutModule,
   ],
+  providers: [UpsertOrderService],
   declarations: [UpsertOrderComponent],
   exports: [UpsertOrderComponent],
   entryComponents: [UpsertOrderComponent],

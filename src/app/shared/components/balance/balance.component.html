@@ -1,7 +1,7 @@
 <h3>Balance</h3>
 <ng-container *ngIf="(balances$ | async) as balances">
 
-  <table mat-table [dataSource]="balances" class="app-balance-table mat-elevation-z8" *ngIf="balances.length else retrievingBalance">
+  <table mat-table [dataSource]="balances" class="app-balance-table" *ngIf="balances.length else retrievingBalance">
 
     <ng-container matColumnDef="asset">
       <td mat-cell *matCellDef="let balance" title="Asset"> {{balance.asset}} </td>
@@ -12,7 +12,7 @@
     </ng-container>
 
     <ng-container matColumnDef="free">
-      <td mat-cell *matCellDef="let balance" title="Free"> {{balance.free | number:'1.8-8' }} </td>
+      <td mat-cell *matCellDef="let balance" title="Free" class="click" (click)="emitBalanceSelected(balance)"> {{balance.free | number:'1.8-8' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="locked">
