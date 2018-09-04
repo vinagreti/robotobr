@@ -13,7 +13,7 @@ const ENDPOINT_EXECUTION_REPORT = `${environment.robotoWs}/executionReport`;
 })
 export class ExecutionReportComponent implements OnInit {
 
-  executionReport$;
+  executionReports$;
 
   executionReportWebsocket: OpenConnection;
 
@@ -35,8 +35,8 @@ export class ExecutionReportComponent implements OnInit {
   }
 
   private loadExecutionReport() {
-    this.executionReport$ = this.executionReportWebsocket.messages.pipe(
-      map((res = []) => res[0])
+    this.executionReports$ = this.executionReportWebsocket.messages.pipe(
+      map((res = []) => res.filter((item: any) => item.orderType))
     );
   }
 

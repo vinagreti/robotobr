@@ -1,7 +1,40 @@
-<h3>Execution report</h3>
+<h3>Execution reports</h3>
 
-<div *ngIf="(executionReport$ | async) as executionReport">
+<mat-card *ngFor="let executionReport of (executionReports$ | async)">
+  <mat-card-header>
+    <mat-card-title>{{ executionReport.orderType }} {{ executionReport.eventTime | date:'dd/MM/yyyy hh:mm:ss' }}
+      <small>({{ executionReport.orderId }})</small>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <span class="rbr-primary-color">{{ executionReport.side }}</span>&nbsp;
+      <span>{{ executionReport.quantity | number:'1.0-4' }}</span>&nbsp;
+      <span class="rbr-warn-color">{{ executionReport.symbol }}</span>&nbsp;
+      <span>by {{ executionReport.price | number:'1.0-4' }}</span>&nbsp;
+      <span> for {{ executionReport.price * executionReport.quantity | number:'1.0-2' }}</span>&nbsp;
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="column" fxLayoutGap="8px">
+      <small>
+        <small [ngClass]="executionReport.isOrderWorking ? 'rbr-primary-color' : 'rbr-warn-color'">{{ executionReport.isOrderWorking ? 'Working' : 'Not working' }}</small>
+        &nbsp; Execution Type:
+        <small [ngClass]="executionReport.executionType !== 'CANCELED' ? 'rbr-primary-color' : 'rbr-warn-color'">{{ executionReport.executionType }}</small>
+        &nbsp; Status:
+        <small [ngClass]="executionReport.orderStatus !== 'CANCELED' ? 'rbr-primary-color' : 'rbr-warn-color'">{{ executionReport.orderStatus }}</small>
+      </small>
+      <small *ngIf="false">newClientOrderId: {{ executionReport.newClientOrderId }}</small>
+      <small *ngIf="false">originalClientOrderId: {{ executionReport.originalClientOrderId }}</small>
+      <small *ngIf="false">timeInForce: {{ executionReport.timeInForce }}</small>
+      <small *ngIf="executionReport.stopPrice > 0">Stop: {{ executionReport.stopPrice }}</small>
+      <small *ngIf="executionReport.icebergQuantity > 0">icebergQuantity: {{ executionReport.icebergQuantity }}</small>
+      <small *ngIf="executionReport.orderRejectReason != 'NONE'">RejectReason: {{ executionReport.orderRejectReason }}</small>
+      <small>Buyer Maker: {{ executionReport.isBuyerMaker }} Time: {{ executionReport.orderTime | date:'dd/MM/yyyy hh:mm:ss' }}</small>
+      <small *ngIf="executionReport.lastTradeQuantity > 0">lastTradeQuantity: {{ executionReport.lastTradeQuantity }}</small>
+      <small *ngIf="executionReport.totalTradeQuantity > 0">totalTradeQuantity: {{ executionReport.totalTradeQuantity }}</small>
+      <small *ngIf="executionReport.priceLastTrade > 0">priceLastTrade: {{ executionReport.priceLastTrade }}</small>
+      <small *ngIf="executionReport.tradeId > -1">tradeId: {{ executionReport.tradeId }}</small>
+      <small *ngIf="executionReport.commission > 0">Commission {{ executionReport.commission }} ({{ executionReport.commissionAsset }})</small>
+    </div>
 
-  {{ executionReport | json }}
-
-</div>
+  </mat-card-content>
+</mat-card>
