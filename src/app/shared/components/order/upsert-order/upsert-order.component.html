@@ -1,9 +1,9 @@
-<form role="form">
+<form role="form" (submit)="confirmCreation()" [formGroup]="orderForm">
 
   <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
-      <mat-select placeholder="Market" name="Market" [(ngModel)]="market">
+      <mat-select placeholder="Market" name="Market" formControlName="market">
         <mat-option *ngFor="let market of markets" [value]="market">
           {{market.symbol}}
         </mat-option>
@@ -11,7 +11,7 @@
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <mat-select placeholder="Side" name="Side" [(ngModel)]="side">
+      <mat-select placeholder="Side" name="Side" formControlName="side">
         <mat-option *ngFor="let side of sides" [value]="side">
           {{side}}
         </mat-option>
@@ -23,11 +23,11 @@
   <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
-      <input matInput type="number" name="quantity" [placeholder]="(market ? market.from : '') + ' quantity'" [(ngModel)]="quantity">
+      <input matInput type="number" name="quantity" [placeholder]="(market ? market.from : '') + ' quantity'" formControlName="quantity">
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <input matInput type="number" name="price" [placeholder]="(market ? market.from : '') + ' price'" [(ngModel)]="price">
+      <input matInput type="number" name="price" [placeholder]="(market ? market.from : '') + ' price'" formControlName="price">
     </mat-form-field>
 
   </div>
@@ -36,9 +36,14 @@
   <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
-      <input matInput type="number" name="total" [placeholder]="(market ? market.to : '') + ' total'" [(ngModel)]="total">
+      <input matInput type="number" name="total" [placeholder]="(market ? market.to : '') + ' total'" formControlName="total">
     </mat-form-field>
 
+  </div>
+
+  <div>
+
+    <button type="submit" mat-raised-button color="primary" [disabled]="!orderForm.valid">Criar ordem</button>
 
   </div>
 

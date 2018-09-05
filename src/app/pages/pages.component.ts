@@ -32,9 +32,9 @@ export class PagesComponent implements OnInit {
   setNewOrderValuesBasesOnBalanceSelected($event) {
     if (this.orderForm && this.orderForm.market) {
       if (this.orderForm.market.from === $event.asset) {
-        this.upsertOrderService.setQuantity.emit($event.value)
+        this.upsertOrderService.setQuantity.emit($event.value);
       } else if (this.orderForm.market.to === $event.asset) {
-        this.upsertOrderService.setTotal.emit($event.value)
+        this.upsertOrderService.setTotal.emit($event.value);
       }
     }
   }
@@ -42,9 +42,9 @@ export class PagesComponent implements OnInit {
   setNewOrderValuesBasesOnTradeSelected($event) {
     if (this.orderForm && this.orderForm.market) {
       if (this.orderForm.market.from === $event.asset) {
-        this.orderForm.quantity = $event.value;
+        this.upsertOrderService.setQuantity.emit($event.value);
       } else if (this.orderForm.market.to === $event.asset) {
-        this.orderForm.total = $event.value;
+        this.upsertOrderService.setTotal.emit($event.value);
       }
     }
   }

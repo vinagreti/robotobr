@@ -3,6 +3,7 @@ import { OpenConnection } from '@app/shared/services/ws-client/ws-client.models'
 import { environment } from '@env/environment.gh-page';
 import { WsClientService } from '@app/shared/services/ws-client/ws-client.service';
 import { RobotoApiService } from '@app/shared/services/roboto-api/roboto-api.service';
+import { map } from 'rxjs/operators';
 
 const ENDPOINT_BALANCE = `${environment.robotoWs}/myOpenOrder`;
 
@@ -47,7 +48,9 @@ export class MyOpenOrdersComponent implements OnInit {
   }
 
   private loadMyOpenOrders() {
-    this.myOpenOrders$ = this.myOpenOrderWebsocket.messages;
+    this.myOpenOrders$ = this.myOpenOrderWebsocket.messages.pipe(
+      map((res = []) => res.filter((item: any) => item.symbol))
+    );
   }
 
 }

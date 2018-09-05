@@ -1,5 +1,3 @@
-<h3>Execution reports</h3>
-
 <mat-card *ngFor="let executionReport of (executionReports$ | async)">
   <mat-card-header>
     <mat-card-title>{{ executionReport.orderType }} {{ executionReport.eventTime | date:'dd/MM/yyyy hh:mm:ss' }}

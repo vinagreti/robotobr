@@ -1,4 +1,3 @@
-<h3>Balance</h3>
 <ng-container *ngIf="(balances$ | async) as balances">
 
   <table mat-table [dataSource]="balances" class="app-balance-table" *ngIf="balances.length else retrievingBalance">
