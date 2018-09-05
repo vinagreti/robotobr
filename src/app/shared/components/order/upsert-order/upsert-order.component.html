@@ -1,15 +1,5 @@
 <form role="form" (submit)="confirmCreation()" [formGroup]="orderForm">
 
-  <div>
-    <mat-form-field fxFlex>
-      <mat-select placeholder="Type" name="Type" formControlName="type">
-        <mat-option *ngFor="let type of types" [value]="type.value">
-          {{type.label}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
   <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
@@ -31,13 +21,27 @@
   </div>
 
   <div fxLayout="row" fxLayoutGap="8px">
+    <mat-form-field fxFlex="50">
+      <mat-select placeholder="Type" name="Type" formControlName="type">
+        <mat-option *ngFor="let type of types" [value]="type.value">
+          {{type.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex [hidden]="!requiredFields['stopPrice']">
+      <input matInput type="number" name="stopPrice" [placeholder]="(market ? market.from : '') + ' Stop Price'" formControlName="stopPrice">
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
-      <input matInput type="number" name="quantity" [placeholder]="(market ? market.from : '') + ' quantity'" formControlName="quantity">
+      <input matInput type="number" name="quantity" [placeholder]="(market ? market.from : '') + ' Quantity'" formControlName="quantity">
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <input matInput type="number" name="price" [placeholder]="(market ? market.from : '') + ' price'" formControlName="price">
+      <input matInput type="number" name="price" [placeholder]="(market ? market.from : '') + ' Price'" formControlName="price">
     </mat-form-field>
 
   </div>
@@ -46,7 +50,7 @@
   <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
-      <input matInput type="number" name="total" [placeholder]="(market ? market.to : '') + ' total'" formControlName="total">
+      <input matInput type="number" name="total" [placeholder]="(market ? market.to : '') + ' Total'" formControlName="total">
     </mat-form-field>
 
   </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { UpsertOrderService } from '@app/shared/components/order/upsert-order/upsert-order.service';
 import { Subscription } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { BinanceOrder } from '@app/shared/models/binance.models';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { RobotoApiService } from '@app/shared/services/roboto-api/roboto-api.service';
@@ -22,6 +22,8 @@ export interface Market {
 export class UpsertOrderComponent implements OnInit, OnDestroy {
 
   orderForm: FormGroup;
+
+  requiredFields: any = {};
 
   @Input()
   set market(v: Market) {
@@ -55,12 +57,21 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
 
   @Input()
   set price(v: number) {
-    console.log('set price', v);
     if (this.orderForm.controls.price.value !== v) {
       this.orderForm.controls.price.setValue(v);
     }
   }
   get price() {
+    return this.orderForm.controls.price.value;
+  }
+
+  @Input()
+  set stopPrice(v: number) {
+    if (this.orderForm.controls.stopPrice.value !== v) {
+      this.orderForm.controls.stopPrice.setValue(v);
+    }
+  }
+  get stopPrice() {
     return this.orderForm.controls.price.value;
   }
 
@@ -96,6 +107,16 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
   private lastChanged: string;
+
+  private orderFormModel = {
+    type: [null, [Validators.required]],
+    market: [null, [Validators.required]],
+    side: [null, [Validators.required]],
+    quantity: [0, [Validators.required, Validators.min(0.00000001)]],
+    price: [0, [Validators.min(0)]],
+    stopPrice: [0, [Validators.min(0)]],
+    total: [0, [Validators.required, Validators.min(0.00000001)]],
+  };
 
   constructor(
     private upsertOrderService: UpsertOrderService,
@@ -169,14 +190,7 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
       height: '200px',
     });
 
-    const newOrder = {
-      symbol: this.orderForm.controls.market.value.symbol,
-      price: this.orderForm.controls.price.value,
-      quantity: this.orderForm.controls.quantity.value,
-      side: this.orderForm.controls.side.value,
-      total: this.orderForm.controls.total.value,
-      type: this.orderForm.controls.type.value,
-    };
+    const newOrder = this.getNewOrderBasedOnRequiredFields();
 
     dialogRef.componentInstance.title = 'Create order';
 
@@ -189,6 +203,20 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
       }
     });
 
+  }
+
+  getNewOrderBasedOnRequiredFields() {
+    const newOrder: any = {};
+    Object.keys(this.orderFormModel).forEach(key => {
+      if (this.requiredFields[key]) {
+        if (key === 'market') {
+          newOrder.symbol = this.orderForm.controls[key].value.symbol;
+        } else {
+          newOrder[key] = this.orderForm.controls[key].value;
+        }
+      }
+    });
+    return newOrder;
   }
 
   private getCrerateOrderQuestion(order) {
@@ -248,14 +276,7 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
 
   private createForm() {
 
-    this.orderForm = this.formBuilder.group({
-      type: [null, [Validators.required]],
-      market: [null, [Validators.required]],
-      side: [null, [Validators.required]],
-      quantity: [0, [Validators.required, Validators.min(0.00000001)]],
-      price: [0, [Validators.required, Validators.min(0.00000001)]],
-      total: [0, [Validators.required, Validators.min(0.00000001)]],
-    });
+    this.orderForm = this.formBuilder.group(this.orderFormModel);
 
   }
 
@@ -279,18 +300,101 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
       })
     );
 
+    this.subscriptions.push(
+      this.orderForm.controls.type.valueChanges.subscribe(() => {
+        this.detectRequiredFields();
+        this.setRequiredFields();
+      })
+    );
+
+  }
+
+  private setRequiredFields() {
+
+    Object.keys(this.orderFormModel).forEach((key) => {
+
+      if (key !== 'type') { // because it is responsible for triggering this act or we would have a LOOP
+
+        const control: AbstractControl = this.orderForm.controls[key];
+
+        control.clearValidators();
+
+        let validators = [...this.orderFormModel[key][1]];
+
+        if (this.requiredFields[key]) {
+
+          validators = [...validators, Validators.required];
+
+          if (['price', 'stopPrice'].indexOf(key) !== -1) {
+
+            validators = [...validators, Validators.min(0.00000001)];
+
+          }
+
+        }
+
+        control.setValidators(validators);
+
+        control.updateValueAndValidity();
+
+      }
+
+    });
+
+  }
+
+  private detectRequiredFields() {
+
+    let requiredFields: any = {};
+
+    switch (this.orderForm.controls.type.value) {
+      case 'LIMIT':
+        requiredFields = {
+          quantity: true,
+          price: true,
+        };
+        break;
+      case 'MARKET':
+        requiredFields = {
+          quantity: true,
+        };
+        break;
+      case 'STOP_LOSS':
+        requiredFields = {
+          quantity: true,
+          stopPrice: true,
+        };
+        break;
+      case 'STOP_LOSS_LIMIT':
+        requiredFields = {
+          quantity: true,
+          price: true,
+          stopPrice: true,
+        };
+        break;
+      case 'TAKE_PROFIT':
+        requiredFields = {
+          quantity: true,
+          stopPrice: true
+        };
+        break;
+      case 'TAKE_PROFIT_LIMIT':
+        requiredFields = {
+          quantity: true,
+          price: true,
+          stopPrice: true,
+        };
+        break;
+      case 'LIMIT_MAKER':
+        requiredFields = {
+          quantity: true,
+          price: true,
+        };
+        break;
+    }
+
+    this.requiredFields = requiredFields;
+
   }
 
 }
-
-
-
-/*
-LIMIT	timeInForce, quantity, price
-MARKET	quantity
-STOP_LOSS	quantity, stopPrice
-STOP_LOSS_LIMIT	timeInForce, quantity, price, stopPrice
-TAKE_PROFIT	quantity, stopPrice
-TAKE_PROFIT_LIMIT	timeInForce, quantity, price, stopPrice
-LIMIT_MAKER	quantity, price
-*/
