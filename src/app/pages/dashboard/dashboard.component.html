@@ -7,15 +7,6 @@
       </mat-option>
     </mat-select>
   </div>
-
-  <div fxFlex="120px">
-    <mat-select placeholder="Add order" [(ngModel)]="orderToAdd" (selectionChange)="addOrder($event)" name="order-selector">
-      <mat-option value=""></mat-option>
-      <mat-option *ngFor="let orderType of orderTypes" [value]="orderType">
-        {{orderType.label}}
-      </mat-option>
-    </mat-select>
-  </div>
 </div>
 
 <hr>

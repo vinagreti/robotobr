@@ -1,9 +1,9 @@
 <ng-container *ngIf="(myOpenOrders$ | async) as myOpenOrders">
 
-  <table mat-table [dataSource]="myOpenOrders[0]" class="app-my-orders-table mat-elevation-z8" *ngIf="myOpenOrders.length">
+  <table mat-table [dataSource]="myOpenOrders" class="app-my-orders-table mat-elevation-z8" *ngIf="myOpenOrders.length">
 
     <ng-container matColumnDef="symbol">
-      <td mat-cell *matCellDef="let myOpenOrder" title="Market"> {{myOpenOrder.symbol}}
+      <td mat-cell *matCellDef="let myOpenOrder" title="Market"> {{myOpenOrder.side}} {{ myOpenOrder.symbol }}
         <br> {{ myOpenOrder.type }} </td>
     </ng-container>
 

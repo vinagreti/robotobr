@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TradeMarket, RobotoTradeType } from '@app/shared/models/market.model';
-import { DialogService } from '@app/shared/components/dialog/dialog.service';
-import { UpsertOrderComponent } from '@app/shared/components/order/upsert-order/upsert-order.component';
+import { TradeMarket } from '@app/shared/models/market.model';
 import { Title } from '@angular/platform-browser';
-import { RobotoApiService } from '@app/shared/services/roboto-api/roboto-api.service';
-import { BinanceOrder } from '@app/shared/models/binance.models';
-import { MatDialogRef } from '@angular/material';
-import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,8 +11,6 @@ export class DashboardComponent implements OnInit {
 
   marketToAdd;
 
-  orderToAdd;
-
   markets: TradeMarket[] = [
     { label: 'BTC - USD', from: 'btc', to: 'usdt' },
     { label: 'ETH - USD', from: 'eth', to: 'usdt' },
@@ -26,20 +18,11 @@ export class DashboardComponent implements OnInit {
     { label: 'ETH - BTC', from: 'eth', to: 'btc' },
   ];
 
-  orderTypes: RobotoTradeType[] = [
-    { label: 'Buy' },
-    { label: 'Stop' },
-    { label: 'BuySell' },
-    { label: 'SellBuy' },
-  ];
-
   private lastPrices: any = {};
 
   private _openMarkets: any = {};
 
   constructor(
-    private robotoApi: RobotoApiService,
-    private dialogservice: DialogService,
     private title: Title,
   ) { }
 
@@ -57,36 +40,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  addOrder(event) {
-
-    const operation = event.value;
-
-    if (operation) {
-      const operationId = operation.label;
-
-      const dialogRef = this.dialogservice.open(UpsertOrderComponent, {
-        title: operationId,
-        actions: [
-          { label: 'Create', callback: (res) => { this.createOrder(res.form, dialogRef); } }
-        ],
-        context: {
-          form: {
-            symbol: 'ETHUSDT',
-            side: 'BUY',
-            quantity: 0.1,
-            price: 271,
-            type: 'LIMIT',
-          }
-        }
-      });
-
-      setTimeout(() => {
-        this.orderToAdd = undefined;
-      }, 0);
-
-    }
-  }
-
   get openMarkets() {
     return Object.keys(this._openMarkets).filter(market => this._openMarkets[market]).map(data => {
       return this._openMarkets[data];
@@ -101,22 +54,6 @@ export class DashboardComponent implements OnInit {
     this.lastPrices[marketFromTo] = price;
 
     this.refreshTitle();
-  }
-
-  private createOrder = (order: BinanceOrder, dialog: MatDialogRef<DialogComponent>) => {
-
-    order = new BinanceOrder(order);
-
-    this.robotoApi.post('createOrder', order).subscribe(res => {
-
-      dialog.close();
-
-    }, err => {
-
-      console.log('ERROR CREATING ORDER', err);
-
-    });
-
   }
 
   private refreshTitle() {

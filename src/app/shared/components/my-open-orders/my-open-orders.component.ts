@@ -49,7 +49,11 @@ export class MyOpenOrdersComponent implements OnInit {
 
   private loadMyOpenOrders() {
     this.myOpenOrders$ = this.myOpenOrderWebsocket.messages.pipe(
-      map((res = []) => res.filter((item: any) => item.symbol))
+      map((res = []) => {
+        return res.length ? res[0].filter((item: any) => {
+          return item.symbol;
+        }) : [];
+      })
     );
   }
 

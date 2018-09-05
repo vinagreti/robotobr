@@ -5,6 +5,7 @@ import { MatButtonModule, MatDialogModule, MatInputModule, MatSelectModule } fro
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UpsertOrderService } from '@app/shared/components/order/upsert-order/upsert-order.service';
+import { ConfirmDialogModule } from '@app/shared/components/confirm-dialog/confirm-dialog.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,9 @@ import { UpsertOrderService } from '@app/shared/components/order/upsert-order/up
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
+    MatDialogModule,
     FlexLayoutModule,
+    ConfirmDialogModule,
   ],
   providers: [UpsertOrderService],
   declarations: [UpsertOrderComponent],

@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule, MatButtonModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DialogModule } from '@app/shared/components/dialog/dialog.module';
-import { UpsertOrderModule } from '@app/shared/components/order/upsert-order/upsert-order.module';
 
 @NgModule({
   imports: [
@@ -20,7 +19,6 @@ import { UpsertOrderModule } from '@app/shared/components/order/upsert-order/ups
     MatSelectModule,
     FlexLayoutModule,
     DialogModule,
-    UpsertOrderModule,
   ],
   declarations: [DashboardComponent]
 })

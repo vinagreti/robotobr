@@ -1,5 +1,15 @@
 <form role="form" (submit)="confirmCreation()" [formGroup]="orderForm">
 
+  <div>
+    <mat-form-field fxFlex>
+      <mat-select placeholder="Type" name="Type" formControlName="type">
+        <mat-option *ngFor="let type of types" [value]="type.value">
+          {{type.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div fxLayout="row" fxLayoutGap="8px">
 
     <mat-form-field fxFlex>
@@ -43,7 +53,7 @@
 
   <div>
 
-    <button type="submit" mat-raised-button color="primary" [disabled]="!orderForm.valid">Criar ordem</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!orderForm.valid">Create</button>
 
   </div>
 

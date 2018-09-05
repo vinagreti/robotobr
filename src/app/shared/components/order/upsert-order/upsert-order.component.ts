@@ -2,6 +2,10 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { UpsertOrderService } from '@app/shared/components/order/upsert-order/upsert-order.service';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BinanceOrder } from '@app/shared/models/binance.models';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { RobotoApiService } from '@app/shared/services/roboto-api/roboto-api.service';
+import { ConfirmDialogComponent } from '@app/shared/components/confirm-dialog/confirm-dialog.component';
 
 export interface Market {
   from: string;
@@ -80,12 +84,24 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
     'SELL',
   ];
 
+  types: any[] = [
+    { label: 'LIMIT', value: 'LIMIT' },
+    { label: 'MARKET', value: 'MARKET' },
+    { label: 'STOP_LOSS', value: 'STOP_LOSS' },
+    { label: 'STOP_LOSS_LIMIT', value: 'STOP_LOSS_LIMIT' },
+    { label: 'TAKE_PROFIT', value: 'TAKE_PROFIT' },
+    { label: 'TAKE_PROFIT_LIMIT', value: 'TAKE_PROFIT_LIMIT' },
+    { label: 'LIMIT_MAKER', value: 'LIMIT_MAKER' },
+  ];
+
   private subscriptions: Subscription[] = [];
   private lastChanged: string;
 
   constructor(
     private upsertOrderService: UpsertOrderService,
     private formBuilder: FormBuilder,
+    private robotoApi: RobotoApiService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -148,7 +164,54 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
 
   confirmCreation() {
 
-    console.log('confirmCreation');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      height: '200px',
+    });
+
+    const newOrder = {
+      symbol: this.orderForm.controls.market.value.symbol,
+      price: this.orderForm.controls.price.value,
+      quantity: this.orderForm.controls.quantity.value,
+      side: this.orderForm.controls.side.value,
+      total: this.orderForm.controls.total.value,
+      type: this.orderForm.controls.type.value,
+    };
+
+    dialogRef.componentInstance.title = 'Create order';
+
+    dialogRef.componentInstance.msg = this.getCrerateOrderQuestion(newOrder);
+
+    dialogRef.componentInstance.confirmed.subscribe(res => {
+      if (res) {
+        this.createOrder(newOrder);
+        console.log('confirmCreation', newOrder);
+      }
+    });
+
+  }
+
+  private getCrerateOrderQuestion(order) {
+    const market = this.orderForm.controls.market.value;
+    switch (order.type) {
+      case 'LIMIT':
+        return `${order.side} ${order.quantity} ${market.from} for ${order.price}. Total ${order.total} ${market.to}`;
+    }
+  }
+
+  private createOrder = (order: BinanceOrder) => {
+
+    order = new BinanceOrder(order);
+
+    this.robotoApi.post('createOrder', order).subscribe(res => {
+
+      console.log('ordercreated', res);
+
+    }, err => {
+
+      console.log('ERROR CREATING ORDER', err);
+
+    });
 
   }
 
@@ -186,6 +249,7 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
   private createForm() {
 
     this.orderForm = this.formBuilder.group({
+      type: [null, [Validators.required]],
       market: [null, [Validators.required]],
       side: [null, [Validators.required]],
       quantity: [0, [Validators.required, Validators.min(0.00000001)]],
@@ -219,3 +283,14 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
 
 }
 
+
+
+/*
+LIMIT	timeInForce, quantity, price
+MARKET	quantity
+STOP_LOSS	quantity, stopPrice
+STOP_LOSS_LIMIT	timeInForce, quantity, price, stopPrice
+TAKE_PROFIT	quantity, stopPrice
+TAKE_PROFIT_LIMIT	timeInForce, quantity, price, stopPrice
+LIMIT_MAKER	quantity, price
+*/
