@@ -1,3 +1,18 @@
-<h1>Login</h1>
-
-<a routerLink="/dashboard">Dashboard</a>
+<div class="default-content-container">
+  <h1>{{title}}</h1>
+  <p>{{subtitle}}</p>
+  <div class="btn-wrapper">
+    <button mat-fab color="accent" (click)="loginGoogle()">
+      <app-icon font="fas">google</app-icon>
+    </button>
+    <button mat-fab color="accent" (click)="loginFacebook()">
+      <app-icon font="fas">facebook</app-icon>
+    </button>
+    <button mat-fab color="accent" (click)="loginGithub()">
+      <app-icon font="fas">github</app-icon>
+    </button>
+    <button mat-fab color="accent" (click)="loginTwitter()">
+      <app-icon font="fas">twitter</app-icon>
+    </button>
+  </div>
+</div>
