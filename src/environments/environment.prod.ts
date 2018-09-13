@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   robotoWs: 'ws://localhost:2903',
-  robotoApi: 'https://localhost:2903',
+  robotoApi: '//localhost:2903',
   USER_DOCUMENT_ID: 't9umFO0vymd9yoRJ5IiHbVgJLAp1',
   firebase_config: {
     apiKey: 'AIzaSyAxsoqwfq_b2fiteiGlkEFck7ZTkFpcU4I',
