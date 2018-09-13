@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { OpenConnection } from './ws-client.models';
+import { debounceTime } from 'rxjs/operators';
 
 interface WsMemoryMap<T> {
   [key: string]: T;
@@ -55,6 +56,8 @@ export class WsClientService {
 
   private openConnection(url: string, limit, mapFn, connection?: OpenConnection, delay = 1e3): OpenConnection {
 
+    const messagesStream = new BehaviorSubject<any>([]);
+
     this.connecting[url] = true;
 
     if (connection) {
@@ -65,7 +68,7 @@ export class WsClientService {
 
       connection = connection ? connection : {
         channel: new WebSocket(url),
-        messages: new BehaviorSubject<string[]>([]),
+        messages: messagesStream.pipe(debounceTime(500)),
         url: url,
         mapFn: mapFn,
         limit: limit,
@@ -82,7 +85,7 @@ export class WsClientService {
 
     connection.channel.onmessage = (message) => {
 
-      let currentMessages = connection.messages.getValue();
+      let currentMessages = messagesStream.getValue();
 
       const mappedData = mapFn(message.data);
 
@@ -94,7 +97,7 @@ export class WsClientService {
 
       }
 
-      connection.messages.next(currentMessages);
+      messagesStream.next(currentMessages);
 
     };
 

@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UpsertOrderService } from '@app/shared/components/order/upsert-order/upsert-order.service';
 import { ConfirmDialogModule } from '@app/shared/components/confirm-dialog/confirm-dialog.module';
+import { MarketSelectorModule } from '@app/shared/components/form/market-selector/market-selector.module';
+import { SideSelectorModule } from '@app/shared/components/form/side-selector/side-selector.module';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import { ConfirmDialogModule } from '@app/shared/components/confirm-dialog/confi
     MatDialogModule,
     FlexLayoutModule,
     ConfirmDialogModule,
+    MarketSelectorModule,
+    SideSelectorModule,
   ],
   providers: [UpsertOrderService],
   declarations: [UpsertOrderComponent],

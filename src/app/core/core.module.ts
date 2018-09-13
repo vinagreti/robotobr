@@ -5,6 +5,7 @@ import { UpsertOrderModule } from '@app/shared/components/order/upsert-order/ups
 import { AuthModule } from '@app/shared/services/auth-service/auth.module';
 import { LocalFirebaseModule } from '@app/shared/services/local-firebase/local-firebase.module';
 import { LocalDatabaseModule } from '@app/shared/services/local-database/local-database.module';
+import { WsClientModule } from '@app/shared/services/ws-client/ws-client.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { LocalDatabaseModule } from '@app/shared/services/local-database/local-d
     AuthModule,
     LocalFirebaseModule,
     LocalDatabaseModule,
+    WsClientModule,
   ]
 })
 export class CoreModule { }

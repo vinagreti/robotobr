@@ -11,6 +11,8 @@ import { BalanceModule } from '@app/shared/components/balance/balance.module';
 import { ExecutionReportModule } from '@app/shared/components/execution-report/execution-report.module';
 import { MyOpenOrdersModule } from '@app/shared/components/my-open-orders/my-open-orders.module';
 import { UpsertOrderModule } from '@app/shared/components/order/upsert-order/upsert-order.module';
+import { TabsModule } from '@app/shared/components/tabs/tabs.module';
+import { OperationFormModule } from '@app/shared/components/operation/operation-form/operation-form.module';
 
 @NgModule({
   imports: [
@@ -28,6 +30,8 @@ import { UpsertOrderModule } from '@app/shared/components/order/upsert-order/ups
     BalanceModule,
     MyOpenOrdersModule,
     UpsertOrderModule,
+    TabsModule,
+    OperationFormModule,
   ],
   declarations: [PagesComponent]
 })

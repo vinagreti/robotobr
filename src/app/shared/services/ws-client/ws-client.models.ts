@@ -1,8 +1,8 @@
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface OpenConnection {
   channel: WebSocket;
-  messages: BehaviorSubject<any[]>;
+  messages: Observable<any[]>;
   url: string;
   mapFn: Function;
   limit: number;

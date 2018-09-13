@@ -2,21 +2,9 @@
 
   <div fxLayout="row" fxLayoutGap="8px">
 
-    <mat-form-field fxFlex>
-      <mat-select placeholder="Market" name="Market" formControlName="market">
-        <mat-option *ngFor="let market of markets" [value]="market">
-          {{market.symbol}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-market-selector fxFlex placeholder="Market" name="Market" formControlName="market"></app-market-selector>
 
-    <mat-form-field fxFlex>
-      <mat-select placeholder="Side" name="Side" formControlName="side">
-        <mat-option *ngFor="let side of sides" [value]="side">
-          {{side}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-side-selector fxFlex placeholder="Side" name="Side" formControlName="side"></app-side-selector>
 
   </div>
 

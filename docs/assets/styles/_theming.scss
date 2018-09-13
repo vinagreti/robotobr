@@ -6,5 +6,10 @@
 // 3 - Classes
 @import './color-classes';
 
+@import './../../app/shared/components/tabs/_tabs-theming.scss';
+
 // APPLY THE THEME TO THE MATERIAL COMPONENTS
 @include angular-material-theme($rbr-theme);
+
+
+@include app-tabs-theming($rbr-theme);

@@ -1,0 +1,51 @@
+<div fxLayout="column" fxLayoutGap="8px">
+
+  <div fxLayout="row" fxLayoutGap="8px">
+
+    <app-market-selector fxFlex placeholder="Market" name="Market" [(ngModel)]="newOperation.market" (ngModelChange)="connectToWebsocket()"></app-market-selector>
+
+    <mat-form-field fxFlex>
+      <mat-select placeholder="Type" name="Type" [(ngModel)]="newOperation.operatioType">
+        <mat-option *ngFor="let operatioType of operatioTypes" [value]="operatioType">
+          {{ operatioType }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="8px">
+
+    <ng-container *ngIf="newOperation.operatioType === 'BUY_LIMIT' || newOperation.operatioType === 'SELL_LIMIT'">
+
+      <mat-form-field fxFlex>
+        <input matInput type="number" name="Bottom" placeholder="Bottom" [(ngModel)]="newOperation.bottomLimit">
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput type="number" name="Top" placeholder="Top" [(ngModel)]="newOperation.topLimit">
+      </mat-form-field>
+
+    </ng-container>
+
+  </div>
+
+  <div *ngIf="newOperation.market">
+
+    {{ lastPrice }} / {{ middlePrice }}
+
+    <ng-container [ngSwitch]="lastPrice > middlePrice">
+
+      <div *ngSwitchCase="true">
+        <span class="rbr-green">TAKE_PROFIT of {{ newOperation.topLimit }}</span>
+      </div>
+
+      <div *ngSwitchCase="false">
+        <span class="rbr-red">STOP_LOSS of {{ newOperation.bottomLimit }}</span>
+      </div>
+
+    </ng-container>
+
+  </div>
+
+</div>

@@ -3,16 +3,10 @@ import { UpsertOrderService } from '@app/shared/components/order/upsert-order/up
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { BinanceOrder } from '@app/shared/models/binance.models';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { RobotoApiService } from '@app/shared/services/roboto-api/roboto-api.service';
 import { ConfirmDialogComponent } from '@app/shared/components/confirm-dialog/confirm-dialog.component';
-
-export interface Market {
-  from: string;
-  to: string;
-  symbol: string;
-}
-
+import { Market } from '@app/shared/components/models/markets';
 
 @Component({
   selector: 'app-upsert-order',
@@ -84,11 +78,6 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
   get total() {
     return this.orderForm.controls.total.value;
   }
-
-  markets: Market[] = [
-    { from: 'ETH', to: 'USDT', symbol: 'ETHUSDT' },
-    { from: 'BTC', to: 'USDT', symbol: 'BTCUSDT' },
-  ];
 
   sides = [
     'BUY',

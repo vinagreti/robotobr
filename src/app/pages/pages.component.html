@@ -34,17 +34,38 @@
 
   <mat-drawer #drawer2 mode="side" position="end" opened="true" class="right-sidenav">
     <div fxLayout="column" fxLayoutGap="8px">
+
       <app-balance [assets]="assets" (balanceSelected)="setNewOrderValuesBasesOnBalanceSelected($event)"></app-balance>
+
       <app-my-open-orders></app-my-open-orders>
-      <app-upsert-order></app-upsert-order>
-      <app-execution-report></app-execution-report>
+
+      <app-tabs name="sidenav-tabs">
+
+        <app-tab name="order-form" label="Order">
+          <ng-template>
+            <app-upsert-order></app-upsert-order>
+          </ng-template>
+        </app-tab>
+
+        <app-tab name="operation-form" label="Operation">
+          <ng-template>
+            <app-operation-form></app-operation-form>
+          </ng-template>
+        </app-tab>
+
+      </app-tabs>
+
     </div>
   </mat-drawer>
 
   <div class="pages-content">
     <div class="pages-router-wrapper">
       <router-outlet></router-outlet>
+
+      <h3>Execution Reports</h3>
+      <app-execution-report></app-execution-report>
     </div>
+
   </div>
 
 </mat-drawer-container>
