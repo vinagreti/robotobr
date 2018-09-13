@@ -36,6 +36,8 @@ export class MarketSelectorComponent implements ControlValueAccessor {
 
   @Input() placeholder = 'Market';
 
+  @Input() disabled: boolean;
+
   private touched: boolean;
 
   private innerValue: Market;

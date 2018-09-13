@@ -28,7 +28,7 @@
       <input matInput type="number" name="quantity" [placeholder]="(market ? market.from : '') + ' Quantity'" formControlName="quantity">
     </mat-form-field>
 
-    <mat-form-field fxFlex>
+    <mat-form-field fxFlex [hidden]="!requiredFields['price']">
       <input matInput type="number" name="price" [placeholder]="(market ? market.from : '') + ' Price'" formControlName="price">
     </mat-form-field>
 

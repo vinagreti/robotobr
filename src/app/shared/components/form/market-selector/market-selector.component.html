@@ -1,5 +1,5 @@
 <mat-form-field>
-  <mat-select [placeholder]="placeholder" name="Market" [(ngModel)]="value">
+  <mat-select [placeholder]="placeholder" name="Market" [(ngModel)]="value" [disabled]="disabled">
     <mat-option *ngFor="let market of markets" [value]="market">
       {{market.symbol}}
     </mat-option>

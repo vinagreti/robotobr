@@ -11,6 +11,8 @@ const BINANCE_WS_ENDPOINT = 'wss://stream.binance.com:9443/ws';
 })
 export class OperationFormComponent implements OnInit {
 
+  active: boolean;
+
   lastPrice;
 
   newOperation = {

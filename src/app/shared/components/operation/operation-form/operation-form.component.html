@@ -2,10 +2,10 @@
 
   <div fxLayout="row" fxLayoutGap="8px">
 
-    <app-market-selector fxFlex placeholder="Market" name="Market" [(ngModel)]="newOperation.market" (ngModelChange)="connectToWebsocket()"></app-market-selector>
+    <app-market-selector fxFlex placeholder="Market" name="Market" [(ngModel)]="newOperation.market" (ngModelChange)="connectToWebsocket()" [disabled]="active"></app-market-selector>
 
     <mat-form-field fxFlex>
-      <mat-select placeholder="Type" name="Type" [(ngModel)]="newOperation.operatioType">
+      <mat-select placeholder="Type" name="Type" [(ngModel)]="newOperation.operatioType" [disabled]="active">
         <mat-option *ngFor="let operatioType of operatioTypes" [value]="operatioType">
           {{ operatioType }}
         </mat-option>
@@ -19,18 +19,24 @@
     <ng-container *ngIf="newOperation.operatioType === 'BUY_LIMIT' || newOperation.operatioType === 'SELL_LIMIT'">
 
       <mat-form-field fxFlex>
-        <input matInput type="number" name="Bottom" placeholder="Bottom" [(ngModel)]="newOperation.bottomLimit">
+        <input matInput type="number" name="Bottom" placeholder="Bottom" [(ngModel)]="newOperation.bottomLimit" [disabled]="active">
       </mat-form-field>
 
       <mat-form-field fxFlex>
-        <input matInput type="number" name="Top" placeholder="Top" [(ngModel)]="newOperation.topLimit">
+        <input matInput type="number" name="Top" placeholder="Top" [(ngModel)]="newOperation.topLimit" [disabled]="active">
       </mat-form-field>
 
     </ng-container>
 
   </div>
 
-  <div *ngIf="newOperation.market">
+  <div>
+
+    <mat-slide-toggle [(ngModel)]="active">{{ active ? 'ACTIVE' : 'INACTIVE'}}</mat-slide-toggle>
+
+  </div>
+
+  <div *ngIf="newOperation.market && active">
 
     {{ lastPrice }} / {{ middlePrice }}
 

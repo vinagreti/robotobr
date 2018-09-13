@@ -66,7 +66,7 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
     }
   }
   get stopPrice() {
-    return this.orderForm.controls.price.value;
+    return this.orderForm.controls.stopPrice.value;
   }
 
   @Input()
@@ -130,19 +130,6 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
 
   }
 
-  calcByTotal() {
-    this.lastChanged = 'total';
-    if (this.total > 0) {
-      if (this.price > 0) {
-        this.orderForm.controls.quantity.setValue(this.total / this.price, { emitEvent: false });
-      } else {
-        this.orderForm.controls.quantity.setValue(0, { emitEvent: false });
-      }
-    } else {
-      this.orderForm.controls.quantity.setValue(0, { emitEvent: false });
-    }
-  }
-
   calcByPrice() {
     if (this.orderForm.controls.price.value > 0) {
       if (this.lastChanged === 'total') {
@@ -159,11 +146,31 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
     }
   }
 
+  calcByTotal() {
+    const price = this.requiredFields['price'] ? this.price : this.stopPrice;
+
+    console.log('calcByTotal', price, this.stopPrice);
+
+    this.lastChanged = 'total';
+    if (this.total > 0) {
+      if (price > 0) {
+        this.orderForm.controls.quantity.setValue(this.total / price, { emitEvent: false });
+      } else {
+        this.orderForm.controls.quantity.setValue(0, { emitEvent: false });
+      }
+    } else {
+      this.orderForm.controls.quantity.setValue(0, { emitEvent: false });
+    }
+  }
+
   calcByQuantity() {
+
+    const price = this.requiredFields['price'] ? this.price : this.stopPrice;
+
     this.lastChanged = 'quantity';
     if (this.quantity > 0) {
-      if (this.price > 0) {
-        this.orderForm.controls.total.setValue(this.quantity * this.price, { emitEvent: false });
+      if (price > 0) {
+        this.orderForm.controls.total.setValue(this.quantity * price, { emitEvent: false });
       } else {
         this.orderForm.controls.total.setValue(0, { emitEvent: false });
       }
@@ -180,6 +187,8 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
     });
 
     const newOrder = this.getNewOrderBasedOnRequiredFields();
+
+    console.log('NEW ORDER', newOrder);
 
     dialogRef.componentInstance.title = 'Create order';
 
@@ -339,23 +348,31 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
     switch (this.orderForm.controls.type.value) {
       case 'LIMIT':
         requiredFields = {
+          side: true,
+          market: true,
           quantity: true,
           price: true,
         };
         break;
       case 'MARKET':
         requiredFields = {
+          side: true,
+          market: true,
           quantity: true,
         };
         break;
       case 'STOP_LOSS':
         requiredFields = {
+          side: true,
+          market: true,
           quantity: true,
           stopPrice: true,
         };
         break;
       case 'STOP_LOSS_LIMIT':
         requiredFields = {
+          side: true,
+          market: true,
           quantity: true,
           price: true,
           stopPrice: true,
@@ -363,12 +380,16 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
         break;
       case 'TAKE_PROFIT':
         requiredFields = {
+          side: true,
+          market: true,
           quantity: true,
           stopPrice: true
         };
         break;
       case 'TAKE_PROFIT_LIMIT':
         requiredFields = {
+          side: true,
+          market: true,
           quantity: true,
           price: true,
           stopPrice: true,
@@ -376,6 +397,8 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
         break;
       case 'LIMIT_MAKER':
         requiredFields = {
+          side: true,
+          market: true,
           quantity: true,
           price: true,
         };
