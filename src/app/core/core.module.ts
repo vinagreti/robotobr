@@ -6,6 +6,7 @@ import { AuthModule } from '@app/shared/services/auth-service/auth.module';
 import { LocalFirebaseModule } from '@app/shared/services/local-firebase/local-firebase.module';
 import { LocalDatabaseModule } from '@app/shared/services/local-database/local-database.module';
 import { WsClientModule } from '@app/shared/services/ws-client/ws-client.module';
+import { BinanceServiceModule } from '@app/shared/services/binance-service/binance-service.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { WsClientModule } from '@app/shared/services/ws-client/ws-client.module'
     LocalFirebaseModule,
     LocalDatabaseModule,
     WsClientModule,
+    BinanceServiceModule,
   ]
 })
 export class CoreModule { }

@@ -4,6 +4,5 @@ export interface OpenConnection {
   channel: WebSocket;
   messages: Observable<any[]>;
   url: string;
-  mapFn: Function;
   limit: number;
 }

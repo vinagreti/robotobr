@@ -149,8 +149,6 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
   calcByTotal() {
     const price = this.requiredFields['price'] ? this.price : this.stopPrice;
 
-    console.log('calcByTotal', price, this.stopPrice);
-
     this.lastChanged = 'total';
     if (this.total > 0) {
       if (price > 0) {
@@ -188,8 +186,6 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
 
     const newOrder = this.getNewOrderBasedOnRequiredFields();
 
-    console.log('NEW ORDER', newOrder);
-
     dialogRef.componentInstance.title = 'Create order';
 
     dialogRef.componentInstance.msg = this.getCrerateOrderQuestion(newOrder);
@@ -197,7 +193,6 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
     dialogRef.componentInstance.confirmed.subscribe(res => {
       if (res) {
         this.createOrder(newOrder);
-        console.log('confirmCreation', newOrder);
       }
     });
 
@@ -348,6 +343,7 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
     switch (this.orderForm.controls.type.value) {
       case 'LIMIT':
         requiredFields = {
+          type: true,
           side: true,
           market: true,
           quantity: true,
@@ -356,6 +352,7 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
         break;
       case 'MARKET':
         requiredFields = {
+          type: true,
           side: true,
           market: true,
           quantity: true,
@@ -363,14 +360,16 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
         break;
       case 'STOP_LOSS':
         requiredFields = {
+          type: true,
           side: true,
           market: true,
           quantity: true,
-          stopPrice: true,
+          price: true,
         };
         break;
       case 'STOP_LOSS_LIMIT':
         requiredFields = {
+          type: true,
           side: true,
           market: true,
           quantity: true,
@@ -380,14 +379,16 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
         break;
       case 'TAKE_PROFIT':
         requiredFields = {
+          type: true,
           side: true,
           market: true,
           quantity: true,
-          stopPrice: true
+          price: true
         };
         break;
       case 'TAKE_PROFIT_LIMIT':
         requiredFields = {
+          type: true,
           side: true,
           market: true,
           quantity: true,
@@ -397,6 +398,7 @@ export class UpsertOrderComponent implements OnInit, OnDestroy {
         break;
       case 'LIMIT_MAKER':
         requiredFields = {
+          type: true,
           side: true,
           market: true,
           quantity: true,

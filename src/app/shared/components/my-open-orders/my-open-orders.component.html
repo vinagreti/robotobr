@@ -1,34 +1,43 @@
 <ng-container *ngIf="(myOpenOrders$ | async) as myOpenOrders">
 
-  <table mat-table [dataSource]="myOpenOrders" class="app-my-orders-table mat-elevation-z8" *ngIf="myOpenOrders.length">
+  <table mat-table [dataSource]="myOpenOrders" class="app-my-orders-table" *ngIf="myOpenOrders.length">
 
     <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
       <td mat-cell *matCellDef="let myOpenOrder" title="Market"> {{myOpenOrder.side}} {{ myOpenOrder.symbol }}
         <br> {{ myOpenOrder.type }} </td>
     </ng-container>
 
     <ng-container matColumnDef="executed">
+      <th mat-header-cell *matHeaderCellDef> % </th>
       <td mat-cell *matCellDef="let myOpenOrder" title="executedQty"> {{myOpenOrder.executedQty | number:'1.2-2' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef> Qt </th>
       <td mat-cell *matCellDef="let myOpenOrder" title="Quantity"> {{myOpenOrder.origQty | number:'1.0-4' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
       <td mat-cell *matCellDef="let myOpenOrder" title="Price"> {{myOpenOrder.price | number:'1.0-4' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef> Total </th>
       <td mat-cell *matCellDef="let myOpenOrder" title="Price"> {{getTotal(myOpenOrder) | number:'1.2-2' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="remove">
+      <th mat-header-cell *matHeaderCellDef> </th>
       <td mat-cell *matCellDef="let myOpenOrder" title="Remove">
-        <button type="button" (click)="cancelOrder(myOpenOrder)">x</button>
+        <button type="button" mat-icon-button (click)="cancelOrder(myOpenOrder)">
+          <app-icon font="mat">close</app-icon>
+        </button>
       </td>
     </ng-container>
 
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 

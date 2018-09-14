@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WsClientService } from '@app/shared/services/ws-client/ws-client.service';
 import { BinanceTradeEvent } from '@app/shared/models/binance-ws-models';
-
-const BINANCE_WS_ENDPOINT = 'wss://stream.binance.com:9443/ws';
+import { BinanceService } from '@app/shared/services/binance-service/binance.service';
 
 @Component({
   selector: 'app-operation-form',
@@ -19,6 +17,7 @@ export class OperationFormComponent implements OnInit {
     market: undefined,
     operatioType: undefined,
     bottomLimit: undefined,
+    middle: undefined,
     topLimit: undefined,
     side: undefined,
   };
@@ -31,7 +30,7 @@ export class OperationFormComponent implements OnInit {
   ];
 
   constructor(
-    private wsClient: WsClientService,
+    private binance: BinanceService,
   ) { }
 
   ngOnInit() {
@@ -39,29 +38,43 @@ export class OperationFormComponent implements OnInit {
 
   connectToWebsocket() {
     if (this.newOperation.market) {
-      const endpoint = `${BINANCE_WS_ENDPOINT}/${this.newOperation.market.from}${this.newOperation.market.to}@trade`;
-      this.wsClient.connect(endpoint.toLocaleLowerCase(), 1, (trade) => {
-        const tradeParsed = new BinanceTradeEvent(JSON.parse(trade));
-        return tradeParsed.price;
-      }).messages.subscribe((msg: any) => {
-        this.lastPrice = msg[0];
+      this.binance.wsTrade(this.newOperation.market).subscribe((msg: any) => {
+        this.lastPrice = msg[0] ? msg[0].price : undefined;
       });
     }
   }
 
-  get middlePrice() {
-
-    if (this.newOperation.topLimit && this.newOperation.bottomLimit && (this.newOperation.topLimit > this.newOperation.bottomLimit)) {
-
-      return this.newOperation.bottomLimit + ((this.newOperation.topLimit - this.newOperation.bottomLimit) / 2);
-
-    } else {
-
-      return undefined;
-
-    }
-
-
+  get topPercentual() {
+    const totalDistance = this.newOperation.topLimit - this.newOperation.middle;
+    const currentDistance = this.lastPrice - this.newOperation.middle;
+    return ((currentDistance / totalDistance) * 100).toFixed(2);
   }
 
+  get bottomPercentual() {
+    const totalDistance = this.newOperation.middle - this.newOperation.bottomLimit;
+    const currentDistance = this.newOperation.middle - this.lastPrice;
+    return ((currentDistance / totalDistance) * 100).toFixed(2);
+  }
+
+  get distancePercentual() {
+    if (this.lastPrice > this.newOperation.middle) {
+      const currentDistance = this.lastPrice - this.newOperation.middle;
+      return ((currentDistance / this.lastPrice) * 100).toFixed(2);
+    } else if (this.lastPrice < this.newOperation.middle) {
+      const currentDistance = this.newOperation.middle - this.lastPrice;
+      return ((currentDistance / this.lastPrice) * 100).toFixed(2);
+    } else {
+      return 0;
+    }
+  }
+
+  get distanceTopPercentual() {
+    const currentDistance = this.newOperation.topLimit - this.newOperation.middle;
+    return ((currentDistance / this.newOperation.middle) * 100).toFixed(2);
+  }
+
+  get distanceBottomPercentual() {
+    const currentDistance = this.newOperation.middle - this.newOperation.bottomLimit;
+    return ((currentDistance / this.newOperation.middle) * 100).toFixed(2);
+  }
 }

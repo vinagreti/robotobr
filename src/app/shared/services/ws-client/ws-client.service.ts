@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { OpenConnection } from './ws-client.models';
-import { debounceTime } from 'rxjs/operators';
+import { interval } from 'rxjs';
+import { map, distinctUntilChanged } from 'rxjs/operators';
 
 interface WsMemoryMap<T> {
   [key: string]: T;
 }
 
-const MAP_DATA_AS_JSON = (data) => {
-  try {
-    return JSON.parse(data);
-  } catch (error) {
-    return data;
-  }
-};
 @Injectable()
 export class WsClientService {
 
@@ -21,13 +15,9 @@ export class WsClientService {
 
   private connecting: WsMemoryMap<boolean> = {};
 
-  private releaseAndReconnectInterval;
+  constructor() { }
 
-  constructor() {
-    // this.startGarbageCollector();
-  }
-
-  connect(url, limit = 10, mapFn?) {
+  connect(url, limit = 10) {
 
     const connection = this.connection[url];
 
@@ -37,15 +27,15 @@ export class WsClientService {
 
     } else {
 
-      return this.connectToWs(url, limit, mapFn || MAP_DATA_AS_JSON);
+      return this.connectToWs(url, limit);
 
     }
 
   }
 
-  private connectToWs(url, limit, mapFn): OpenConnection {
+  private connectToWs(url, limit): OpenConnection {
 
-    const connection = this.openConnection(url, limit, mapFn);
+    const connection = this.openConnection(url, limit);
 
     this.connection[url] = connection;
 
@@ -54,88 +44,52 @@ export class WsClientService {
   }
 
 
-  private openConnection(url: string, limit, mapFn, connection?: OpenConnection, delay = 1e3): OpenConnection {
+  private openConnection(url: string, limit, connection?: OpenConnection, delay = 1e3): OpenConnection {
 
     const messagesStream = new BehaviorSubject<any>([]);
+
+    const emissor: Observable<any[]> = interval(500).pipe(map(() => {
+      return messagesStream.getValue();
+    }), distinctUntilChanged());
 
     this.connecting[url] = true;
 
     if (connection) {
-
       connection.channel = new WebSocket(url);
-
     } else {
-
       connection = connection ? connection : {
         channel: new WebSocket(url),
-        messages: messagesStream.pipe(debounceTime(500)),
+        messages: emissor,
         url: url,
-        mapFn: mapFn,
         limit: limit,
       };
-
     }
 
     connection.channel.onclose = () => {
       setTimeout(() => {
         console.log(`WS connection closed. Tryng to reconnect to ${url}`);
-        this.openConnection(url, limit, mapFn, connection, 1e3);
+        this.openConnection(url, limit, connection, 1e3);
       }, 2e3);
     };
 
     connection.channel.onmessage = (message) => {
-
       let currentMessages = messagesStream.getValue();
-
-      const mappedData = mapFn(message.data);
-
+      const mappedData = this.mapToJson(message.data);
       currentMessages.unshift(mappedData);
-
       if (limit) {
-
         currentMessages = currentMessages.slice(0, limit);
-
       }
-
       messagesStream.next(currentMessages);
-
     };
-
     this.connecting[url] = false;
-
     return connection;
-
   }
 
-  private startGarbageCollector() {
-    this.releaseAndReconnectInterval = setInterval(() => {
-      const connections = Object.keys(this.connection).filter(key => {
-        return this.connection[key] && this.connection[key].channel;
-      }).map(key => {
-        return this.connection[key];
-      });
-      this.releaseAndReconnect(connections);
-    }, 10e3);
-  }
-
-  private releaseAndReconnect(connections = [], position = 0) {
-    if (connections.length) {
-      const connection = connections[position];
-      const nextPosition = position + 1;
-
-      connection.channel.close();
-
-      if (connections[nextPosition]) {
-        setTimeout(() => {
-          this.releaseAndReconnect(connections, nextPosition);
-        }, 1e3);
-      }
-    }
-  }
-
-  private stopGarbageCollector() {
-    if (this.releaseAndReconnectInterval) {
-      clearInterval(this.releaseAndReconnectInterval);
+  private mapToJson = (data) => {
+    try {
+      return JSON.parse(data);
+    } catch (error) {
+      return data;
     }
   }
 

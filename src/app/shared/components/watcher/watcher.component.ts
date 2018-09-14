@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { WsClientService } from '@app/shared/services/ws-client/ws-client.service';
 import { TradeMarket } from '@app/shared/models/market.model';
 import { BinanceTradeEvent } from '@app/shared/models/binance-ws-models';
+import { BinanceService } from '@app/shared/services/binance-service/binance.service';
 
 const BINANCE_WS_ENDPOINT = 'wss://stream.binance.com:9443/ws';
 
@@ -43,7 +43,7 @@ export class WatcherComponent implements OnInit {
   private _market: TradeMarket;
 
   constructor(
-    private wsClient: WsClientService,
+    private binance: BinanceService,
   ) { }
 
   ngOnInit() { }
@@ -88,22 +88,10 @@ export class WatcherComponent implements OnInit {
   }
 
   private coonnectToWebsocket() {
-
-    const endpoint = `${BINANCE_WS_ENDPOINT}/${this.market.from}${this.market.to}@trade`;
-
-    this.wsClient.connect(endpoint, 200, (trade) => {
-
-      const tradeParsed = new BinanceTradeEvent(JSON.parse(trade));
-
-      return {
-        tradeTime: tradeParsed.tradeTime,
-        price: tradeParsed.price,
-        quantity: tradeParsed.quantity,
-      }
-
-    }).messages.subscribe((msg: any) => {
-      this.lastTrades = msg;
-      this.trade.emit(this.lastTrades[0]);
-    });
+    this.binance.wsTrade(this.market, 40)
+      .subscribe((msg: any) => {
+        this.lastTrades = msg;
+        this.trade.emit(this.lastTrades[0]);
+      });
   }
 }

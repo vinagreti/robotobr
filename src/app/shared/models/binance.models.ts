@@ -16,15 +16,15 @@ export class BinanceOrder {
     }
 
     if (data.quantity) {
-      this.quantity = `${parseFloat(data.quantity).toFixed(2)}`;
+      this.quantity = `${parseFloat(data.quantity).toFixed(8)}`;
     }
 
     if (data.price) {
-      this.price = `${parseFloat(data.price).toFixed(2)}`;
+      this.price = `${parseFloat(data.price).toFixed(8)}`;
     }
 
     if (data.stopPrice) {
-      this.stopPrice = `${parseFloat(data.stopPrice).toFixed(2)}`;
+      this.stopPrice = `${parseFloat(data.stopPrice).toFixed(8)}`;
     }
 
     if (data.type) {

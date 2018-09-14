@@ -2,7 +2,8 @@
 
   <div fxLayout="row" fxLayoutGap="8px">
 
-    <app-market-selector fxFlex placeholder="Market" name="Market" [(ngModel)]="newOperation.market" (ngModelChange)="connectToWebsocket()" [disabled]="active"></app-market-selector>
+    <app-market-selector fxFlex placeholder="Market" name="Market" [(ngModel)]="newOperation.market" (ngModelChange)="connectToWebsocket()"
+      [disabled]="active"></app-market-selector>
 
     <mat-form-field fxFlex>
       <mat-select placeholder="Type" name="Type" [(ngModel)]="newOperation.operatioType" [disabled]="active">
@@ -18,13 +19,23 @@
 
     <ng-container *ngIf="newOperation.operatioType === 'BUY_LIMIT' || newOperation.operatioType === 'SELL_LIMIT'">
 
-      <mat-form-field fxFlex>
-        <input matInput type="number" name="Bottom" placeholder="Bottom" [(ngModel)]="newOperation.bottomLimit" [disabled]="active">
-      </mat-form-field>
+      <div>
+        <mat-form-field>
+          <input matInput type="number" name="Bottom" placeholder="Bottom" [(ngModel)]="newOperation.bottomLimit" [disabled]="active">
+        </mat-form-field>
+      </div>
 
-      <mat-form-field fxFlex>
-        <input matInput type="number" name="Top" placeholder="Top" [(ngModel)]="newOperation.topLimit" [disabled]="active">
-      </mat-form-field>
+      <div>
+        <mat-form-field>
+          <input matInput type="number" name="Middle" placeholder="Middle" [(ngModel)]="newOperation.middle" [disabled]="active">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <input matInput type="number" name="Top" placeholder="Top" [(ngModel)]="newOperation.topLimit" [disabled]="active">
+        </mat-form-field>
+      </div>
 
     </ng-container>
 
@@ -36,21 +47,28 @@
 
   </div>
 
-  <div *ngIf="newOperation.market && active">
+  <div *ngIf="newOperation.market && active" fxLayout="column" fxLayoutGap="8px">
 
-    {{ lastPrice }} / {{ middlePrice }}
+    <div>
+      Relation {{ distanceBottomPercentual }}% / {{ distanceTopPercentual }}% ({{ distanceTopPercentual / distanceBottomPercentual
+      }}/1)
+    </div>
 
-    <ng-container [ngSwitch]="lastPrice > middlePrice">
+    <div>
+      Status {{ lastPrice | json}} / {{ newOperation.middle }} ({{ distancePercentual }}%)
+    </div>
 
-      <div *ngSwitchCase="true">
-        <span class="rbr-green">TAKE_PROFIT of {{ newOperation.topLimit }}</span>
-      </div>
+    <div [ngSwitch]="lastPrice > newOperation.middle">
 
-      <div *ngSwitchCase="false">
-        <span class="rbr-red">STOP_LOSS of {{ newOperation.bottomLimit }}</span>
-      </div>
+      <ng-container *ngSwitchCase="true">
+        <span class="rbr-green">TAKE_PROFIT of {{ newOperation.topLimit }} ({{ topPercentual }}%)</span>
+      </ng-container>
 
-    </ng-container>
+      <ng-container *ngSwitchCase="false">
+        <span class="rbr-red">STOP_LOSS of {{ newOperation.bottomLimit }} ({{ bottomPercentual }}%)</span>
+      </ng-container>
+
+    </div>
 
   </div>
 
